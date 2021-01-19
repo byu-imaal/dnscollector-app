@@ -288,14 +288,11 @@ public class DNSVpnService extends VpnService {
                 vpnThread.start();
             }
         }else if(runIfAlreadyRunning && (vpnRunnable != null && vpnRunnable.isThreadRunning())){
-            vpnRunnable.addAfterThreadStop(new Runnable() {
-                @Override
-                public void run() {
-                    synchronized (DNSVpnService.this){
-                        vpnRunnable = new VPNRunnable(DNSVpnService.this, upstreamServers, excludedApps, excludedWhitelisted);
-                        vpnThread = new Thread(vpnRunnable, "DNSChanger");
-                        vpnThread.start();
-                    }
+            vpnRunnable.addAfterThreadStop(() -> {
+                synchronized (DNSVpnService.this){
+                    vpnRunnable = new VPNRunnable(DNSVpnService.this, upstreamServers, excludedApps, excludedWhitelisted);
+                    vpnThread = new Thread(vpnRunnable, "DNSChanger");
+                    vpnThread.start();
                 }
             });
             vpnRunnable.stop(vpnThread);

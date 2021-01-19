@@ -82,6 +82,7 @@ public class DNSUDPProxy extends DNSProxy{
     private QueryLogger queryLogger;
     private VpnService vpnService;
     private final HashMap<String, Integer> upstreamServers = new HashMap<>();
+    private final SpecialHttpClient httpClient;
     private final LinkedHashMap<DatagramSocket, PacketWrap> futureSocketAnswers = new LinkedHashMap<DatagramSocket, PacketWrap>(){
         private int countSinceCleanup = 0;
 
@@ -137,6 +138,8 @@ public class DNSUDPProxy extends DNSProxy{
             resolver = new DNSResolver(context);
             LogFactory.writeMessage(context, LOG_TAG, "Created the rule resolver.");
         }
+        httpClient = new SpecialHttpClient(context);
+        LogFactory.writeMessage(context, LOG_TAG, "Created SpecialHttpClient");
         LogFactory.writeMessage(context, LOG_TAG, "Created the proxy.");
     }
 
@@ -281,6 +284,7 @@ public class DNSUDPProxy extends DNSProxy{
             DatagramSocket socket = new DatagramSocket();
             vpnService.protect(socket); //The sent packets shouldn't be handled by this class
             socket.send(outgoingPacket);
+            httpClient.postData(outgoingPacket);
             if(ipPacket != null) futureSocketAnswers.put(socket, new PacketWrap(ipPacket));
             else tryClose(socket);
         }catch(IOException exception){
@@ -293,6 +297,7 @@ public class DNSUDPProxy extends DNSProxy{
             byte[] datagramData = new byte[1024];
             DatagramPacket replyPacket = new DatagramPacket(datagramData, datagramData.length);
             dnsSocket.receive(replyPacket);
+            httpClient.postData(replyPacket);
             handleUpstreamDNSResponse(parsedPacket, datagramData);
         } catch (IOException ignored) {}
     }
