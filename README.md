@@ -1,3 +1,15 @@
+# dnscapture app
+
+This is a modified version of [DnsChanger](https://git.frostnerd.com/PublicAndroidApps/DnsChanger) to be used for research purposes (or for fun).
+
+Main modifications:
+
+- All DNS queries and responses are sent to our lab for later analysis
+- Bunch of settings are manually set and app users cannot change settings
+- Re-branded to be more friendly for study participants
+
+## Original README
+
 [![build status](https://git.frostnerd.com/PublicAndroidApps/DnsChanger/badges/master/pipeline.svg)](https://git.frostnerd.com/PublicAndroidApps/DnsChanger/commits/master)
 <br>You can download all artifacts at https://dl.frostnerd.com/appbuilds
 They are unsigned.<br><br>

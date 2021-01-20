@@ -3,8 +3,8 @@
 
 # See http://stackoverflow.com/questions/5701126, happens in dnsjava
 -keep class android.support.v7.widget.SearchView { *; }
--keep class com.frostnerd.dnschanger.util.GenericFileProvider
--keep class com.frostnerd.dnschanger.activities.PinActivity
+-keep class edu.byu.imaal.dnscapture.util.GenericFileProvider
+-keep class edu.byu.imaal.dnscapture.activities.PinActivity
 -keep class android.support.v7.app.AppCompatViewInflater {
     *;
 }

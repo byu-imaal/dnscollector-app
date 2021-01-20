@@ -5,7 +5,7 @@ android {
     compileSdkVersion 30
 
     defaultConfig {
-        applicationId "com.frostnerd.dnschanger"
+        applicationId "edu.byu.imaal.dnscapture"
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 125

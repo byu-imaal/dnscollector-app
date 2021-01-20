@@ -23,7 +23,7 @@
     <string name="android4_4_warning">"Внимание: ваша Версия Android (4.4), как известно, имеет проблемы с VPN-подключениями. Если это приложение падает или просто не работает, это, скорее всего, виновата ваша система, а не приложение.
 Извините за неудобства."</string>
     <string name="app_name">DnsChanger</string>
-    <string name="app_share_text">Посмотрите это приложение для изменения DNS на Android. Вы можете скачать его здесь: https://play.google.com/store/apps/details?id=com.frostnerd.dnschanger</string>
+    <string name="app_share_text">Посмотрите это приложение для изменения DNS на Android. Вы можете скачать его здесь: https://play.google.com/store/apps/details?id=edu.byu.imaal.dnschanger</string>
     <string name="app_supports_tasker_text">Приложение поддерживает Tasker и может использоваться как плагин действий для автоматизации использования DNS.</string>
     <string name="background">Фон</string>
     <string name="background_configure_error">В разрешении на запуск VPN отказано.
@@ -44,7 +44,7 @@
     <string name="debug_dialog_info_text">"Активация функции отладки может увеличить потребление батареи. Кроме того, созданные журналы содержат общую (не личную) информацию о вашем устройстве [версия приложения, версия Android, имя устройства, производитель] и могут регистрировать DNS-серверы, которые вы настраиваете для использования приложения.
 
 Эти данные не отправляются автоматически, но помните об этом при отправке этих журналов мне."</string>
-    <string name="deep_link_title">DNSChanger от Frostnerd</string>
+    <string name="deep_link_title">DNSCollector от Frostnerd</string>
     <string name="default_dns">Адреса DNS по умолчанию</string>
     <string name="default_dns_explain_delete">Длительное нажатие на запись, чтобы удалить или изменить её. Нажмите на дополнительные записи, чтобы удалить их.</string>
     <string name="default_dns_legal_warning">"Любой из представленных здесь поставщиков может быть зарегистрированным товарным знаком соответствующих владельцев. Их условия использования применимы.
@@ -81,7 +81,7 @@
 \nМожет быть использовано для того, чтобы помешать пользователям телефонов вмешиваться в приложение, если пользователь не разбирается в технологиях. Это было разработано, чтобы не дать детям остановить приложение. Чтобы выбрать, что защищать, откройте настройки.</string>
     <string name="feature_shortcuts">"С помощью этого приложения вы можете создавать ярлыки на главном экране. Эти ярлыки содержат настройки DNS и меняют ваши DNS-серверы, нажимая на них, не открывая приложение.
 Это делает их особенно удобными, если хотите быстро переключаться между разными серверами - просто создайте много ярлыков и сохраните их на главном экране."</string>
-    <string name="feature_tiles">Для быстрого доступа вы можете разместить плитки в области уведомлений. Они могут использоваться для запуска/остановки и паузы/возобновления DNSChanger.
+    <string name="feature_tiles">Для быстрого доступа вы можете разместить плитки в области уведомлений. Они могут использоваться для запуска/остановки и паузы/возобновления DNSCollector.
 \n
 \nЧтобы добавить их, перетащите вниз область уведомлений, нажмите на перо и перетащите их вверх, длительным нажатием их.</string>
     <string name="file_adblock">Файл Adblock (Формат: HOST ^)</string>
@@ -126,7 +126,7 @@
     <string name="message_settings_exported">Настройки успешно экспортированы.</string>
     <string name="nav_title_advanced">Расширенный</string>
     <string name="nav_title_current_networks">Текущие сети</string>
-    <string name="nav_title_dns">DNS</string>
+    <string name="nav_title_dns">Home</string>
     <string name="nav_title_dns_query">DNS-запрос</string>
     <string name="nav_title_features">Функции</string>
     <string name="nav_title_how_does_it_work">Как это работает?</string>
@@ -158,9 +158,9 @@
     <string name="notification_channel_hiddenicon">Канал без значка</string>
     <string name="notification_channel_hiddenicon_description">Канал не показывает значок на панели уведомлений</string>
     <string name="notification_ipv6_text">Перейдите к настройкам, если хотите включить IPv6.</string>
-    <string name="notification_paused">DNSChanger приостановлен</string>
-    <string name="notification_reason_stopped">DNSChanger был автоматически остановлен: [причина]</string>
-    <string name="notification_running">DNSChanger активен</string>
+    <string name="notification_paused">DNSCollector приостановлен</string>
+    <string name="notification_reason_stopped">DNSCollector был автоматически остановлен: [причина]</string>
+    <string name="notification_running">DNSCollector активен</string>
     <string name="notification_text_running_in_advanced_mode">Расширенные настройки включены.</string>
     <string name="notification_x_blacklisted">[x] приложения в черном списке</string>
     <string name="notification_x_whitelisted">[x] приложения в белом списке</string>
@@ -169,7 +169,7 @@
     <string name="open_app">Открыть приложение</string>
     <string name="open_share_file">Открыть /поделиться файлом</string>
     <string name="paused">Пауза</string>
-    <string name="permissions_description_access_data">Позволяет приложению получать доступ к данным DNSChanger в общем</string>
+    <string name="permissions_description_access_data">Позволяет приложению получать доступ к данным DNSCollector в общем</string>
     <string name="permissions_label_access_data">Доступ к данным</string>
     <string name="pin_dialog_text">Выберите Пин-код для защиты приложения. Введите Пин-код, который вы указали в настройках (по умолчанию: 1234)</string>
     <string name="pin_dialog_title">Защита Пин-кодом</string>
@@ -185,7 +185,7 @@
     <string name="rate">Оценить</string>
     <string name="rate_request_text">"Хотите оценить это приложение?
 Это помогло бы распространить его и показать признательность за мою работу.."</string>
-    <string name="reason_stop_network_change">Сеть изменена (DNSChanger установлен на остановку)</string>
+    <string name="reason_stop_network_change">Сеть изменена (DNSCollector установлен на остановку)</string>
     <string name="reason_stop_tasker">Tasker остановлен</string>
     <string name="regular_expression">Регулярное выражение (RegEx)</string>
     <string name="remove">Удалить</string>
@@ -201,7 +201,7 @@
     <string name="send_crash_report">Отправить отчет об ошибке</string>
     <string name="set_device_admin_info">"This app can be set as device admin to prevent removing it without entering the devices Passcode first.
 
-Приложение может быть установлено в качестве администратора устройства, чтобы предотвратить его удаление без ввода пароля устройства в первую очередь. Политики безопасности не используются. Функция работает только в том случае, если политика администратора устройств настроена на запрос паролей при удалении приложений (в основном найденных в компаниях или поставляемых с приложениями родительского контроля) Категории не пользоваться этими правами. DNSChanger должен быть удален как администратор устройства, прежде чем пытаться удалить его с телефона, вернитесь к настройкам, чтобы сделать это."</string>
+Приложение может быть установлено в качестве администратора устройства, чтобы предотвратить его удаление без ввода пароля устройства в первую очередь. Политики безопасности не используются. Функция работает только в том случае, если политика администратора устройств настроена на запрос паролей при удалении приложений (в основном найденных в компаниях или поставляемых с приложениями родительского контроля) Категории не пользоваться этими правами. DNSCollector должен быть удален как администратор устройства, прежде чем пытаться удалить его с телефона, вернитесь к настройкам, чтобы сделать это."</string>
     <string name="settings">Настройки</string>
     <string name="share_using">Использовать обмен</string>
     <string name="shortcut_conflict_text">Приложение настроено на запуск/остановку vpn при изменении типа вашей сети (либо Wi-Fi, либо 3G).
@@ -222,19 +222,19 @@
     <string name="subtitle_configuring">Настройка [[x]]</string>
     <string name="success">Успешно</string>
     <string name="summary_advanced_settings">Включить дополнительные настройки</string>
-    <string name="summary_auto_mobile">Автом. включать DNSChanger при подключении к мобильной сети</string>
-    <string name="summary_auto_wifi">Автовключение DNSChanger при подключении к сети Wi-Fi</string>
+    <string name="summary_auto_mobile">Автом. включать DNSCollector при подключении к мобильной сети</string>
+    <string name="summary_auto_wifi">Автовключение DNSCollector при подключении к сети Wi-Fi</string>
     <string name="summary_automation_warn">Предупреждение. Использование любого из них может помешать активным профилям Tasker с помощью этого приложения!</string>
     <string name="summary_check_connectivity">Проверьте, доступны ли настроенные DNS-серверы каждый раз, когда нажата кнопка запуска</string>
     <string name="summary_clear_local_rules">Удаляет все локальные правила. Нельзя вернуть.</string>
     <string name="summary_clear_queries">Удаляет все запротоколированные запросы. Нельзя вернуть.</string>
-    <string name="summary_create_shortcut">Создайте ярлык, привязанный к определенному набору DNS-серверов, чтобы быстро запустить DNSChanger</string>
+    <string name="summary_create_shortcut">Создайте ярлык, привязанный к определенному набору DNS-серверов, чтобы быстро запустить DNSCollector</string>
     <string name="summary_custom_ports">Разрешить ввод пользовательских портов в поля DNS.</string>
     <string name="summary_debug">"Включает отладку, которая генерирует файлы журнала для отправки разработчику (не происходит автоматически)
 Может увеличить использование батареи."</string>
     <string name="summary_device_admin_activate">Активируйте это приложение в качестве администратора устройства, чтобы предотвратить удаление</string>
     <string name="summary_disable_crashreporting">Отключите автоматическую отчетность о сбоях. Отчеты содержат только версию приложения, версию Android и трассировку аварийного стека и не содержат никаких личных данных.</string>
-    <string name="summary_disable_network_change">Автоматически отключается при смене сети (например, от Wifi к 3G). DNSChanger снова активируется, если он установлен в предыдущих настройках.</string>
+    <string name="summary_disable_network_change">Автоматически отключается при смене сети (например, от Wifi к 3G). DNSCollector снова активируется, если он установлен в предыдущих настройках.</string>
     <string name="summary_disable_notification_icon">Отключает значок dns, отображаемый на панели уведомлений. По-прежнему будет отображаться при открытии области уведомлений, может не работать на более новых версиях Android.</string>
     <string name="summary_dns_over_tcp">Пересылка DNS-запросов по протоколу TCP, а не UDP</string>
     <string name="summary_enable_app_shortcuts">Включает ярлыки приложений. Длительное нажатие на ярлык приложения в лаунчере, чтобы открыть меню</string>
@@ -245,7 +245,7 @@
     <string name="summary_jump_advanced_settings">Нажмите здесь, чтобы настроить дополнительные параметры.</string>
     <string name="summary_loopback_allowed">Позволяет вводить адрес обратной связи во всех полях (:: 1 и 127.0.0.1)</string>
     <string name="summary_notification">Показывать уведомление при запуске DNS Changer</string>
-    <string name="summary_notification_on_stop">Показывать уведомление с указанием причины, по которой DNSChanger был остановлен автоматически</string>
+    <string name="summary_notification_on_stop">Показывать уведомление с указанием причины, по которой DNSCollector был остановлен автоматически</string>
     <string name="summary_pin">Включить защиту Пин-кодом</string>
     <string name="summary_pin_app">Запросить Пин-код при запуске приложения</string>
     <string name="summary_pin_app_shortcut">Запросить Пин-код при запуске/остановке из ярлыков приложений</string>
@@ -258,7 +258,7 @@
     <string name="summary_reset">Сбрасывает все настройки и сохраненные DNS-серверы. Действия ярлыков и задач не удаляются.</string>
     <string name="summary_rules_activated">Используйте правила, настроенные в главном меню</string>
     <string name="summary_send_debug">Отправлять журналы отладки разработчику</string>
-    <string name="summary_shortcut_click_again_disable">Остановите DNSChanger при повторном нажатии ярлыка, с которого он был запущен</string>
+    <string name="summary_shortcut_click_again_disable">Остановите DNSCollector при повторном нажатии ярлыка, с которого он был запущен</string>
     <string name="summary_show_used_dns">Показывать используемые DNS-серверы в уведомлении</string>
     <string name="summary_start_boot">Автоматический запуск DNS Changer при включении телефона</string>
     <string name="summary_tcp_timeout">Устанавливает время в миллисекундах, после которого приложение перестает пытаться достичь восходящего потока DNS-сервера</string>
@@ -276,19 +276,19 @@
     <string name="text_dns_configuration">"Сеть [имя] имеет следующие DNS-серверы:
 
 [серверы]"</string>
-    <string name="tile_pause">Приостановить DNSChanger</string>
+    <string name="tile_pause">Приостановить DNSCollector</string>
     <string name="tile_pause_resume">Приостановить / Возобновить</string>
-    <string name="tile_resume">Возобновить DNSChanger</string>
-    <string name="tile_start">Запустить DNSChanger</string>
+    <string name="tile_resume">Возобновить DNSCollector</string>
+    <string name="tile_start">Запустить DNSCollector</string>
     <string name="tile_start_stop">Запустить / Остановить</string>
-    <string name="tile_stop">Остановить DNSChanger</string>
+    <string name="tile_stop">Остановить DNSCollector</string>
     <string name="time">Время</string>
     <string name="title_about">О приложении</string>
     <string name="title_advanced_settings">Расширенные настройки</string>
     <string name="title_auto_mobile">Автозапуск (мобильный)</string>
     <string name="title_auto_wifi">Автозапуск (WiFi)</string>
     <string name="title_automation">Автоматизация</string>
-    <string name="title_autopause_apps">Приложения, которые приостанавливают DNSChanger. Текущий: [[кол.]]</string>
+    <string name="title_autopause_apps">Приложения, которые приостанавливают DNSCollector. Текущий: [[кол.]]</string>
     <string name="title_category_pin">Защитный Пин-код</string>
     <string name="title_check_connectivity">Проверка подключения</string>
     <string name="title_clear_local_rules">Очистить локальные правила</string>
@@ -353,7 +353,7 @@
 \nИсходный код можно найти в разделе HTTPS://Git.frostnerd.com/PublicAndroidApps/DnsChanger.</string>
     <string name="wait_importing_rules">Обнаружение типов файлов, подождите…</string>
     <string name="warning">Предупреждение</string>
-    <string name="warning_disabling_v4">Большинство версий Android не могут получить доступ к интернету больше, когда DNSChanger запущен, а IPv4-адрес не предоставляется. Вам придется попробовать для своего устройства.</string>
+    <string name="warning_disabling_v4">Большинство версий Android не могут получить доступ к интернету больше, когда DNSCollector запущен, а IPv4-адрес не предоставляется. Вам придется попробовать для своего устройства.</string>
     <string name="warning_started_using_tasker">DNS Changer был запущен с помощью Tasker. Остановка может прерваться. Запуск его не с помощью Tasker не применяет DNS-серверы, настроенные с помощью Tasker. Все равно прекратить?</string>
     <string name="whitelist">Белый список</string>
     <string name="wildcard">Wildcard</string>
@@ -362,10 +362,10 @@
     <string name="x_lines">[x] линий</string>
     <string name="yes">Да</string>
     <string-array name="tasker_configure_actions">
-        <item>Запустить DNSChanger</item>
-        <item>Остановить DNSChanger</item>
-        <item>Приостановить DNSChanger</item>
-        <item>Возобновить DNSChanger</item>
+        <item>Запустить DNSCollector</item>
+        <item>Остановить DNSCollector</item>
+        <item>Приостановить DNSCollector</item>
+        <item>Возобновить DNSCollector</item>
     </string-array>
     <string-array name="theme">
         <item>По умолчанию</item>

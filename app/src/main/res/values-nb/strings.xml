@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DNSChanger</string>
+    <string name="app_name">DNSCollector</string>
     <string name="start">Start</string>
     <string name="stop">Stopp</string>
     <string name="rate">Ranger</string>
@@ -12,9 +12,9 @@
     <string name="information">Informasjon</string>
     <string name="settings">Innstillinger</string>
     <string name="title_notification">Notifikasjon</string>
-    <string name="summary_notification">Vis en notifikasjon når DNSChanger kjører</string>
+    <string name="summary_notification">Vis en notifikasjon når DNSCollector kjører</string>
     <string name="title_start_boot">Start ved systemoppstart</string>
-    <string name="summary_start_boot">Starter DNSChanger automatisk når mobilen din blir skrudd på</string>
+    <string name="summary_start_boot">Starter DNSCollector automatisk når mobilen din blir skrudd på</string>
     <string name="subtitle_configuring">Setter opp [[x]]</string>
     <string name="action_resume">Fortsett</string>
     <string name="action_pause">Pause</string>
@@ -23,8 +23,8 @@
     <string name="notification_running">DNS Changer er aktiv</string>
     <string name="active">Aktiv</string>
     <string name="paused">Satt på pause</string>
-    <string name="summary_auto_wifi">Skru på DNSChanger automatisk når det kobles til et Wi-Fi-nettverk</string>
-    <string name="summary_auto_mobile">Skru på DNSChanger automatisk når det kobles til mobildata</string>
+    <string name="summary_auto_wifi">Skru på DNSCollector automatisk når det kobles til et Wi-Fi-nettverk</string>
+    <string name="summary_auto_mobile">Skru på DNSCollector automatisk når det kobles til mobildata</string>
     <string name="title_auto_wifi">Start automatisk (Wi-Fi)</string>
     <string name="title_auto_mobile">Start automatisk (Mobile)</string>
     <string name="running">Aktiv</string>
@@ -52,30 +52,30 @@
     <string name="summary_pin_value">Klikk her for å endre PIN-koden</string>
     <string name="title_pin_value">Endre PIN</string>
     <string name="show">Vis</string>
-    <string name="title_autopause_apps">Apper som setter DNSChanger på pause. For øyeblikket: [[count]]</string>
+    <string name="title_autopause_apps">Apper som setter DNSCollector på pause. For øyeblikket: [[count]]</string>
     <string name="pin_dialog_title">PIN-beskyttet</string>
     <string name="pin_dialog_text">Du valgte å PIN-beskytte denne appen. Vennligst skriv PIN-koden du oppga i innstillingene (Standard: 1234)</string>
     <string name="title_pin_notification">Beskytt notifikasjonen</string>
-    <string name="summary_pin_notification">Be om PIN-koden når DNSChanger startes/stoppes fra notifikasjonen</string>
+    <string name="summary_pin_notification">Be om PIN-koden når DNSCollector startes/stoppes fra notifikasjonen</string>
     <string name="title_pin_app">Beskytt appen</string>
     <string name="summary_pin_app">Spør om PIN-koden når appen startes opp</string>
     <string name="title_category_pin">PIN-beskyttelse</string>
     <string-array name="tasker_configure_actions">
-        <item>Start DNSChanger</item>
-        <item>Stopp DNSChanger</item>
-        <item>Sett DNSChanger på pause</item>
-        <item>Fortsett DNSChanger</item>
+        <item>Start DNSCollector</item>
+        <item>Stopp DNSCollector</item>
+        <item>Sett DNSCollector på pause</item>
+        <item>Fortsett DNSCollector</item>
     </string-array>
     <string name="error">Feil</string>
     <string name="send_crash_report">Send krasjrapport</string>
-    <string name="deep_link_title">DNSChanger fra Frostnerd</string>
+    <string name="deep_link_title">DNSCollector fra Frostnerd</string>
     <string name="summary_pin_tile">Spør om PIN-koden når du starter/stopper fra hurtiginnstillingene</string>
     <string name="title_pin_tile">Beskytt hurtiginnstillingene</string>
-    <string name="tile_start">Start DNSChanger</string>
-    <string name="tile_stop">Stopp DNSChanger</string>
-    <string name="tile_pause">Sett DNSChanger på pause</string>
-    <string name="tile_resume">Fortsett DNSChanger</string>
-    <string name="summary_disable_network_change">Skru av automatisk når det byttes nettverk (f.eks. Wi-Fi til 4G). DNSChanger vil bli skrudd på igjen dersom de innstillingene ovenfor indikerer det.</string>
+    <string name="tile_start">Start DNSCollector</string>
+    <string name="tile_stop">Stopp DNSCollector</string>
+    <string name="tile_pause">Sett DNSCollector på pause</string>
+    <string name="tile_resume">Fortsett DNSCollector</string>
+    <string name="summary_disable_network_change">Skru av automatisk når det byttes nettverk (f.eks. Wi-Fi til 4G). DNSCollector vil bli skrudd på igjen dersom de innstillingene ovenfor indikerer det.</string>
     <string name="title_disable_network_change">Skru av ved nettverksendring</string>
     <string name="title_share_app">Del denne appen</string>
     <string name="share_using">Del gjennom</string>
@@ -96,13 +96,13 @@
     <string name="title_debug_category">Feilsøking</string>
     <string name="shortcuts">Snarveier</string>
     <string name="title_shortcut_click_again_disable">Klikk på snarveien igjen for å stoppe</string>
-    <string name="summary_shortcut_click_again_disable">Stopp DNSChanger når det klikkes på snarveien som den ble startet opp med</string>
-    <string name="summary_notification_on_stop">Vis en notifikasjon som forteller hvorfor DNSChanger ble automatisk stoppet</string>
+    <string name="summary_shortcut_click_again_disable">Stopp DNSCollector når det klikkes på snarveien som den ble startet opp med</string>
+    <string name="summary_notification_on_stop">Vis en notifikasjon som forteller hvorfor DNSCollector ble automatisk stoppet</string>
     <string name="title_notification_on_stop">Si ifra ved stopp</string>
     <string name="title_create_shortcut">Lag en snarvei</string>
-    <string name="summary_create_shortcut">Lag en snarvei som er bundet til et spesifikt sett med DNS-tjenere, for å raskt starte opp DNSChanger</string>
-    <string name="notification_reason_stopped">DNSChanger ble stoppet automatisk: [reason]</string>
-    <string name="reason_stop_network_change">Nettverket ble endret (DNSChanger er satt til å stoppe)</string>
+    <string name="summary_create_shortcut">Lag en snarvei som er bundet til et spesifikt sett med DNS-tjenere, for å raskt starte opp DNSCollector</string>
+    <string name="notification_reason_stopped">DNSCollector ble stoppet automatisk: [reason]</string>
+    <string name="reason_stop_network_change">Nettverket ble endret (DNSCollector er satt til å stoppe)</string>
     <string name="reason_stop_tasker">Stoppet av Tasker</string>
     <string name="title_enable_ipv6">Skru på IPv6</string>
     <string name="summary_enable_ipv6">Skru på IPv6. Dette vil la deg velge IPv6-adresser som DNS-tjenere.</string>
@@ -136,12 +136,12 @@
     <string name="default_dns_explain_delete">Langklikk på en oppføring for å slette eller redigere den. Klikk på ytterligere oppføringer for å slette dem også.</string>
     <string name="summary_enable_ipv4">Skru på IPv4. Dette vil la deg velge IPv4-adresser som DNS-tjenere</string>
     <string name="title_enable_ipv4">Skru på IPv4</string>
-    <string name="warning_disabling_v4">De fleste Android-versjoner vil ikke kunne koble til Internett lenger dersom DNSChanger kjører og ingen IPv4-adresser er spesifisert. Du vil måtte teste det ut for din enhet, riktignok.</string>
+    <string name="warning_disabling_v4">De fleste Android-versjoner vil ikke kunne koble til Internett lenger dersom DNSCollector kjører og ingen IPv4-adresser er spesifisert. Du vil måtte teste det ut for din enhet, riktignok.</string>
     <string name="x_apps_selected">[[x]] apper er valgt</string>
     <string name="tile_pause_resume">Pause / Fortsett</string>
     <string name="tile_start_stop">Start / Stopp</string>
     <string name="title_vpn_exclusion">VPN-unntak</string>
-    <string name="nav_title_dns">DNS</string>
+    <string name="nav_title_dns">Home</string>
     <string name="nav_title_main">Hovedskjerm</string>
     <string name="nav_title_learn">Lær mer</string>
     <string name="nav_title_how_does_it_work">Hvordan fungerer det?</string>
@@ -178,7 +178,7 @@
     <string name="notification_ipv6_text">Gå til innstillingene hvis du vil skru på IPv6.</string>
     <string name="mail_debug_text">Skriv en liten melding som forklarer hvorfor du sender inn loggføringsfilene</string>
     <string name="permissions_label_access_data">Tilgang til dataer</string>
-    <string name="permissions_description_access_data">Gir appen tilgang til DNSChanger sine data generelt</string>
+    <string name="permissions_description_access_data">Gir appen tilgang til DNSCollector sine data generelt</string>
     <string name="edit">Rediger</string>
     <string name="summary_pin_fingerprint">Tillat autentisering med ethvert lagret fingeravtrykk</string>
     <string name="title_pin_fingerprint">Fingeravtrykk</string>
@@ -294,11 +294,11 @@
     <string name="cancel">Avbryt</string>
     <string name="ok">OK</string>
     <string name="easter_egg">Ingen påskeegg her. Gå vekk.</string>
-    <string name="feature_pin_protection">Du kan pin-beskytte enhver handling som starter / stopper / pauser / fortsetter DNSChanger. Hver gang en av disse skal utføres, vises en dialog der du ber om pinnen satt av deg.
+    <string name="feature_pin_protection">Du kan pin-beskytte enhver handling som starter / stopper / pauser / fortsetter DNSCollector. Hver gang en av disse skal utføres, vises en dialog der du ber om pinnen satt av deg.
 \n
 \nDette kan brukes til å hindre telefonen brukeren fra å forstyrre appen hvis brukeren ikke er teknisk kunnskapsrik. Den ble utviklet for å hindre barn i å stoppe appen.
 \nÅpne innstillingene for å velge hva du vil beskytte.</string>
-    <string name="feature_tiles">For rask tilgang kan du plassere fliser i varslingsområdet. De kan brukes til å starte / stoppe og pause / fortsette DNSChanger.
+    <string name="feature_tiles">For rask tilgang kan du plassere fliser i varslingsområdet. De kan brukes til å starte / stoppe og pause / fortsette DNSCollector.
 \n
 \nFor å legge dem til, dra ned varslingsområdet, klikk på pennen og dra dem oppover ved å lenge klikke på dem.</string>
     <string name="feature_shortcuts">Ved hjelp av denne appen kan du lage snarveier på startskjermen. Disse snarveiene inneholder DNS-innstillinger og endrer DNS-serverne dine ved å klikke på dem uten at du trenger å åpne appen.
@@ -333,16 +333,16 @@
 \n
 \nDenne funksjonen fungerer bare hvis enhetsadministrasjonspolicyen er satt til å be om passord når du fjerner apper (er vanligvis funnet i bedrifter eller levert med foreldrekontrollapper)
 \n
-\nDNSChanger vil ikke bruke disse rettighetene.
-\nDNSChanger må fjernes som enhetsadministrator før du prøver å fjerne den fra telefonen. Kom tilbake til innstillingene for å gjøre det.</string>
-    <string name="app_share_text">Hei, se på denne DNS-skiftende appen for Android. Du kan laste ned det her: https://play.google.com/store/apps/details\?id=com.frostnerd.dnschanger</string>
+\nDNSCollector vil ikke bruke disse rettighetene.
+\nDNSCollector må fjernes som enhetsadministrator før du prøver å fjerne den fra telefonen. Kom tilbake til innstillingene for å gjøre det.</string>
+    <string name="app_share_text">Hei, se på denne DNS-skiftende appen for Android. Du kan laste ned det her: https://play.google.com/store/apps/details\?id=edu.byu.imaal.dnschanger</string>
     <string name="android4_4_warning">Advarsel: Det er kjent at Android-versjonen din (4.4) har problemer med VPN-tilkoblinger. Hvis denne appen krasjer eller bare ikke fungerer, er det mest sannsynlig at systemet ditt og ikke skylden for denne appen.
 \nJeg beklager bryet.</string>
     <string name="create_tasker_action">Opprette Tasker Action</string>
     <string name="summary_automation_warn">Advarsel: Å bruke noen av disse kan forstyrre aktive Tasker-profiler ved bruk av denne appen!</string>
     <string name="tasker_support">Tasker-støtte</string>
     <string name="app_supports_tasker_text">Denne appen støtter Tasker og kan brukes som en action-plugin for å automatisere DNS-bruk.</string>
-    <string name="warning_started_using_tasker">DNSChanger ble startet med Tasker. Å stoppe den kan avbryte den. Å starte den med ikke å bruke tasker, bruker ikke DNS-serverne som er konfigurert ved hjelp av Tasker. Stopp uansett\?</string>
+    <string name="warning_started_using_tasker">DNSCollector ble startet med Tasker. Å stoppe den kan avbryte den. Å starte den med ikke å bruke tasker, bruker ikke DNS-serverne som er konfigurert ved hjelp av Tasker. Stopp uansett\?</string>
     <string name="shortcut_conflict_text">Denne appen er satt til å starte / stoppe vpn når typen nettverk endres (enten Wifi eller 3G).
 \nDette kan komme i konflikt med hvilken som helst innstilling når du starter fra en snarvei, ettersom handlingen kan bli overstyret av appen selv (bare en VPN kan kjøres når som helst).
 \n

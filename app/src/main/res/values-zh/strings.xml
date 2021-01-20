@@ -12,19 +12,19 @@
     <string name="information">信息</string>
     <string name="settings">设置</string>
     <string name="title_notification">通知</string>
-    <string name="summary_notification">当 DNSChanger 正在运行时显示通知</string>
+    <string name="summary_notification">当 DNSCollector 正在运行时显示通知</string>
     <string name="title_start_boot">开机自启</string>
-    <string name="summary_start_boot">当你的手机启动时自动打开 DNSChanger</string>
+    <string name="summary_start_boot">当你的手机启动时自动打开 DNSCollector</string>
     <string name="subtitle_configuring">配置 [[x]]</string>
     <string name="action_resume">恢复</string>
     <string name="action_pause">暂停</string>
     <string name="action_stop">停止</string>
-    <string name="notification_paused">DNSChanger 已暂停</string>
-    <string name="notification_running">DNSChanger 运行中</string>
+    <string name="notification_paused">DNSCollector 已暂停</string>
+    <string name="notification_running">DNSCollector 运行中</string>
     <string name="active">运行中</string>
     <string name="paused">已暂停</string>
-    <string name="summary_auto_wifi">当连接到 WiFi 网络时自动打开 DNSChanger</string>
-    <string name="summary_auto_mobile">当连接到移动网络时自动打开 DNSChanger</string>
+    <string name="summary_auto_wifi">当连接到 WiFi 网络时自动打开 DNSCollector</string>
+    <string name="summary_auto_mobile">当连接到移动网络时自动打开 DNSCollector</string>
     <string name="title_auto_wifi">自动开启 (WIFI)</string>
     <string name="title_auto_mobile">自动开启 (移动)</string>
     <string name="running">正在运行</string>
@@ -42,7 +42,7 @@
     <string name="yes">是</string>
     <string name="no">否</string>
     <string name="contact_developer">联系开发者</string>
-    <string name="warning_started_using_tasker">DNSChanger 已使用 Tasker 启动。将其停止可能会导致中断。不使用 Tasker 启动不会应用使用 Tasker 配置的 DNS 服务器。仍然停止？</string>
+    <string name="warning_started_using_tasker">DNSCollector 已使用 Tasker 启动。将其停止可能会导致中断。不使用 Tasker 启动不会应用使用 Tasker 配置的 DNS 服务器。仍然停止？</string>
     <string name="app_supports_tasker_text">这个应用支持 Tasker，可用作为自动化 DNS 用途的操作插件。</string>
     <string name="tasker_support">Tasker 支持</string>
     <string name="create_shortcut">创建快捷方式</string>
@@ -60,41 +60,41 @@
     <string name="create_tasker_action">正在创建 Tasker 操作</string>
     <string name="show">显示</string>
     <string name="android4_4_warning">警告: 你的 Android 版本 (4.4) 已知会与 VPN 连接发生问题。如果这个应用发生崩溃或者只是无法工作，有可能是你的系统而不是这个应用的故障问题。\n对此造成不便深感抱歉。</string>
-    <string name="title_autopause_apps">用于暂停 DNSChanger 的应用。当前: [[count]]</string>
+    <string name="title_autopause_apps">用于暂停 DNSCollector 的应用。当前: [[count]]</string>
     <string name="pin_dialog_title">PIN码保护</string>
     <string name="pin_dialog_text">你已选择使用PIN码保护这个应用。请在设置中输入要提供的PIN码 (默认: 1234)</string>
     <string name="title_pin_notification">保护通知</string>
-    <string name="summary_pin_notification">当从通知中停止/暂停 DNSChanger 时询问 PIN码</string>
+    <string name="summary_pin_notification">当从通知中停止/暂停 DNSCollector 时询问 PIN码</string>
     <string name="title_pin_app">保护应用</string>
     <string name="summary_pin_app">当启动应用时询问 PIN码</string>
     <string name="title_category_pin">PIN码保护</string>
     <string-array name="tasker_configure_actions">
-        <item>开始 DNSChanger</item>
-        <item>停止 DNSChanger</item>
-        <item>暂停 DNSChanger</item>
-        <item>恢复 DNSChanger</item>
+        <item>开始 DNSCollector</item>
+        <item>停止 DNSCollector</item>
+        <item>暂停 DNSCollector</item>
+        <item>恢复 DNSCollector</item>
     </string-array>
     <string name="error">出错</string>
     <string name="vpn_error_explain">这个应用异常崩溃。这有可能是意味着这个应用不支持你的手机/ROM 亦或者发生常规错误(很有可能表明我在哪些地方出了错)。\n\n不管怎样，发送崩溃报告会极大地帮助我并很将其修复。\n是否要将其发送给我?</string>
     <string name="send_crash_report">发送崩溃报告</string>
-    <string name="deep_link_title">DNSChanger by Frostnerd</string>
+    <string name="deep_link_title">DNSCollector by Frostnerd</string>
     <string name="summary_pin_tile">当从快捷设置中开始/停止时询问PIN码</string>
     <string name="title_pin_tile">保护快捷设置</string>
-    <string name="tile_start">开启 DNSChanger</string>
-    <string name="tile_stop">停止 DNSChanger</string>
-    <string name="tile_pause">暂停 DNSChanger</string>
-    <string name="tile_resume">恢复 DNSChanger</string>
-    <string name="summary_disable_network_change">在切换网络 (例如 Wifi 切换为 3G) 时自动停用。如果设定了上一个设置，将重新激活 DNSChanger。</string>
+    <string name="tile_start">开启 DNSCollector</string>
+    <string name="tile_stop">停止 DNSCollector</string>
+    <string name="tile_pause">暂停 DNSCollector</string>
+    <string name="tile_resume">恢复 DNSCollector</string>
+    <string name="summary_disable_network_change">在切换网络 (例如 Wifi 切换为 3G) 时自动停用。如果设定了上一个设置，将重新激活 DNSCollector。</string>
     <string name="title_disable_network_change">在网络切换时停用</string>
     <string name="title_share_app">分享这个应用</string>
-    <string name="app_share_text">嘿，快来看一下这个 Android 版的 DNS 更改器。你可以点击链接下载: https://play.google.com/store/apps/details?id=com.frostnerd.dnschanger</string>
+    <string name="app_share_text">嘿，快来看一下这个 Android 版的 DNS 更改器。你可以点击链接下载: https://play.google.com/store/apps/details?id=edu.byu.imaal.dnschanger</string>
     <string name="share_using">分享方式</string>
     <string name="title_export_settings">导出设置</string>
     <string name="title_import_settings">导入设置</string>
     <string name="message_settings_exported">设置导出成功。</string>
     <string name="open_share_file">打开/分享文件</string>
     <string name="success">成功</string>
-    <string name="set_device_admin_info">这个应用可以设为设备管理器以避免未经事先输入设备 PIN码即可将其移除。\n\n不使用安全性策略。\n\n这个功能仅能在设备管理器策略设为移除应用时询问密码中工作(大部分可在商业或者运输类的家长控制应用中发现)\n\nDNSChanger 实际上不会使用这些权限。\n在尝试将 DNSChanger 从你的手机上移除之前，必须要移除设备管理器，返回到设置这样做。</string>
+    <string name="set_device_admin_info">这个应用可以设为设备管理器以避免未经事先输入设备 PIN码即可将其移除。\n\n不使用安全性策略。\n\n这个功能仅能在设备管理器策略设为移除应用时询问密码中工作(大部分可在商业或者运输类的家长控制应用中发现)\n\nDNSCollector 实际上不会使用这些权限。\n在尝试将 DNSCollector 从你的手机上移除之前，必须要移除设备管理器，返回到设置这样做。</string>
     <string name="title_device_admin">设备管理器</string>
     <string name="summary_device_admin_activate">将这个应用激活为设备管理器以防止卸载</string>
     <string name="device_admin_description">通过设置为设备管理器防止卸载</string>
@@ -109,13 +109,13 @@
     <string name="shortcuts">快捷方式</string>
     <string name="dialog_question_export_shortcuts">同时导出快捷方式?\n\n(导出自使用这个应用安装以来创建的所有快捷方式，甚至是已经删除的快捷方式。)</string>
     <string name="title_shortcut_click_again_disable">再次点击快捷方式以停止</string>
-    <string name="summary_shortcut_click_again_disable">当重新点击快捷方式时停止 DNSChanger</string>
-    <string name="summary_notification_on_stop">显示为什么 DNSChanger 会自动停止的通知</string>
+    <string name="summary_shortcut_click_again_disable">当重新点击快捷方式时停止 DNSCollector</string>
+    <string name="summary_notification_on_stop">显示为什么 DNSCollector 会自动停止的通知</string>
     <string name="title_notification_on_stop">停止时通知</string>
     <string name="title_create_shortcut">创建快捷方式</string>
-    <string name="summary_create_shortcut">创建绑定指定 DNS 服务器组的快捷方式以快速启动 DNSChanger</string>
-    <string name="notification_reason_stopped">DNSChanger 已自动停止: [reason]</string>
-    <string name="reason_stop_network_change">网络发生变更 (DNSChanger 已设为停止)</string>
+    <string name="summary_create_shortcut">创建绑定指定 DNS 服务器组的快捷方式以快速启动 DNSCollector</string>
+    <string name="notification_reason_stopped">DNSCollector 已自动停止: [reason]</string>
+    <string name="reason_stop_network_change">网络发生变更 (DNSCollector 已设为停止)</string>
     <string name="reason_stop_tasker">被 Tasker 停止</string>
     <string name="invalid_dns_error_text">似乎你配置的 DNS 服务器之一无法在你的设备上使用。 \n也许你输入了无效的 IP 地址，在给定的 IP 地址上不存在 DNS 服务器亦或者只是个临时错误。\n\n请检查主菜单中的配置并验证所输入的地址是否正确。</string>
     <string name="title_enable_ipv6">启用 IPv6</string>
@@ -151,13 +151,13 @@
     <string name="default_dns_explain_delete">长按条目以删除或编辑。点击额外条目可同时删除。</string>
     <string name="summary_enable_ipv4">启用 IPv4。 允许提供 ipv4 地址用作为 DNS 服务器</string>
     <string name="title_enable_ipv4">启用 IPv4</string>
-    <string name="warning_disabling_v4">大多数 Android 版本在 DNSChanger 正在运行及未提供 IPv4 地址时都不能再访问互联网。可是，你需要为你的设备尝试一下。</string>
+    <string name="warning_disabling_v4">大多数 Android 版本在 DNSCollector 正在运行及未提供 IPv4 地址时都不能再访问互联网。可是，你需要为你的设备尝试一下。</string>
     <string name="x_apps_selected">已选择 [[x]] 个应用</string>
     <string name="tile_pause_resume">暂停 / 恢复</string>
     <string name="tile_start_stop">开始 / 停止</string>
     <string name="title_vpn_exclusion">VPN 排除</string>
     <string name="unfixable_error_explaination">后台工作程序因在一些设备上发生异常而崩溃。这个崩溃无法通过应用本身修复。\n这时可试着重新启动应用，如果没有帮助，可以重新开机。\n\n如果问题仍然存在并且你的设备已经 Root ，可尝试下载应用 Tun.ko Installer，有可能会修复。这个应用的开发者是 DroidVPN Inc.\nLink: https://play.google.com/store/apps/details?id=com.aed.tun.installer</string>
-    <string name="nav_title_dns">DNS</string>
+    <string name="nav_title_dns">Home</string>
     <string name="nav_title_main">主屏幕</string>
     <string name="nav_title_learn">学习</string>
     <string name="nav_title_how_does_it_work">怎么使用?</string>
@@ -190,10 +190,10 @@
 \n你可以在设置中配置这些快捷方式的行为。</string>
     <string name="notification_channel_default">默认通道</string>
     <string name="notification_channel_default_description">发布通知的默认通道。</string>
-    <string name="feature_tiles">为了快速访问，你可以在通知区域放置磁贴。它们可用于开始/停止及暂停/恢复 DNSChanger。
+    <string name="feature_tiles">为了快速访问，你可以在通知区域放置磁贴。它们可用于开始/停止及暂停/恢复 DNSCollector。
 \n
 \n要添加瓷贴，只需下拉通知区域，点击铅笔图标并通过长按将瓷贴向上拖曳即可。</string>
-    <string name="feature_pin_protection">你可以使用 PIN码保护每一个开始/停止/暂停/恢复 DNSChanger 的操作。每次执行操作时，都会向你显示询问 PIN码的对话框。
+    <string name="feature_pin_protection">你可以使用 PIN码保护每一个开始/停止/暂停/恢复 DNSCollector 的操作。每次执行操作时，都会向你显示询问 PIN码的对话框。
 \n
 \n如果用户不精通技术，这样可用于防止手机用户干扰到应用。专为阻止小孩停止该应用而开发。
 \n打开设置可选择要保护的项目。</string>
@@ -221,7 +221,7 @@
     <string name="notification_ipv6_text">如果你要启用 IPv6 ，请前往设置。</string>
     <string name="mail_debug_text">写一段你为什么要发送该日志文件的简短描述</string>
     <string name="permissions_label_access_data">访问数据</string>
-    <string name="permissions_description_access_data">允许应用以常规方式访问 DNSChanger 的数据</string>
+    <string name="permissions_description_access_data">允许应用以常规方式访问 DNSCollector 的数据</string>
     <string name="edit">编辑</string>
     <string name="summary_pin_fingerprint">允许授权使用任何已保存的指纹</string>
     <string name="title_pin_fingerprint">指纹</string>

@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.frostnerd.dnschanger.activities.MainActivity">
+    tools:context="edu.byu.imaal.dnscapture.activities.MainActivity">
 
     <ScrollView
         android:layout_width="match_parent"

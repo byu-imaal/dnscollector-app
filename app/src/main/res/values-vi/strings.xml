@@ -19,11 +19,11 @@
     <string name="action_resume">Tiếp tục</string>
     <string name="action_pause">Tạm dừng</string>
     <string name="action_stop">Dừng</string>
-    <string name="notification_paused">DNSChanger bị tạm dừng</string>
+    <string name="notification_paused">DNSCollector bị tạm dừng</string>
     <string name="notification_running">Trình thay đổi DNS đang hoạt động</string>
     <string name="active">Hoạt động</string>
     <string name="paused">Đã tạm dừng</string>
-    <string name="summary_auto_wifi">Tự động bật DNSChanger khi kết nối với mạng wifi</string>
+    <string name="summary_auto_wifi">Tự động bật DNSCollector khi kết nối với mạng wifi</string>
     <string name="summary_auto_mobile">Tự động bật DNS Changer khi kết nối với mạng di động</string>
     <string name="title_auto_wifi">Tự động chạy (WIFI)</string>
     <string name="title_auto_mobile">Tự động chạy (Di động)</string>
@@ -60,7 +60,7 @@
     <string name="create_tasker_action">Tạo hành động cho tác vụ tự động</string>
     <string name="show">Hiển thị</string>
     <string name="android4_4_warning">Cảnh báo: phiên bản Android của bạn (4.4) được biết là có vấn đề với kết nối VPN. Nếu ứng dụng này gặp sự cố hoặc chỉ cần không làm việc, nó rất có thể là do hệ thống của bạn và không phải là lỗi của ứng dụng này.\nTôi rất lấy làm tiếc cho sự bất tiện này.</string>
-    <string name="title_autopause_apps">Các ứng dụng tạm dừng DNSChanger. Hiện tại: [[count]]</string>
+    <string name="title_autopause_apps">Các ứng dụng tạm dừng DNSCollector. Hiện tại: [[count]]</string>
     <string name="pin_dialog_title">Được bảo vệ bằng mã PIN</string>
     <string name="pin_dialog_text">Bạn chọn bảo vệ bằng mã PIN cho ứng dụng này. Hãy nhập số pin bạn đã cung cấp trong cài đặt (mặc định: 1234)</string>
     <string name="title_pin_notification">Thông báo bảo vệ</string>
@@ -77,14 +77,14 @@
     <string name="error">Lỗi</string>
     <string name="vpn_error_explain">Ứng dụng đã bị sự cố ngột. Điều này có thể ngụ ý rằng cách ứng dụng này hoạt động không được hỗ trợ bởi điện thoại, bản ROM của bạn/ROM hoặc xảy ra một lỗi chung (mà rất có thể chỉ ra rằng tôi đã làm điều gì sai).\n\nDù bằng cách nào, gửi báo cáo sự cố sẽ giúp tôi rất nhiều và có thể giúp ích cho việc sửa chữa.\nBạn có muốn gửi nó cho tôi?</string>
     <string name="send_crash_report">Gửi báo cáo sự cố</string>
-    <string name="deep_link_title">DNSChanger của Frostnerd</string>
+    <string name="deep_link_title">DNSCollector của Frostnerd</string>
     <string name="summary_pin_tile">Yêu cầu mã PIN khi chạy / dừng từ Cài đặt nhanh</string>
     <string name="title_pin_tile">Cài đặt nhanh bảo vệ</string>
-    <string name="tile_start">Bắt đầu DNSChanger</string>
-    <string name="tile_stop">Dừng DNSChanger</string>
-    <string name="tile_pause">Tạm dừng DNSChanger</string>
-    <string name="tile_resume">Tiếp tục DNSChanger</string>
-    <string name="summary_disable_network_change">Tự động tắt khi thay đổi mạng (ví dụ: Wifi sang 3G). DNSChanger sẽ kích hoạt lại nếu được đặt trong các cài đặt trước đó.</string>
+    <string name="tile_start">Bắt đầu DNSCollector</string>
+    <string name="tile_stop">Dừng DNSCollector</string>
+    <string name="tile_pause">Tạm dừng DNSCollector</string>
+    <string name="tile_resume">Tiếp tục DNSCollector</string>
+    <string name="summary_disable_network_change">Tự động tắt khi thay đổi mạng (ví dụ: Wifi sang 3G). DNSCollector sẽ kích hoạt lại nếu được đặt trong các cài đặt trước đó.</string>
     <string name="title_disable_network_change">Tắt khi thay đổi mạng</string>
     <string name="title_share_app">Chia sẻ ứng dụng này</string>
     <string name="app_share_text">Chào, có một cái nhìn vào ứng dụng này thay đổi DNS cho Android. Bạn có thể tải xuống ở đây: https://play.google.com/store/apps/details?id=com.frostnerd.Trình thay đổi DNS</string>
@@ -109,11 +109,11 @@
     <string name="shortcuts">Lối tắt</string>
     <string name="dialog_question_export_shortcuts">Xuất các lối tắt là tốt?\n\n(Xuất tất cả các lối tắt được tạo ra từ khi cài đặt sử dụng ứng dụng này, ngay cả những ứng dụng đã bị xóa)</string>
     <string name="title_shortcut_click_again_disable">Nhấn lại phím tắt để dừng</string>
-    <string name="summary_shortcut_click_again_disable">Dừng DNSChanger khi ẩn lại phím tắt được bắt đầu bằng</string>
-    <string name="summary_notification_on_stop">Hiển thị thông báo với lý do tại sao DNSChanger bị dừng tự động</string>
+    <string name="summary_shortcut_click_again_disable">Dừng DNSCollector khi ẩn lại phím tắt được bắt đầu bằng</string>
+    <string name="summary_notification_on_stop">Hiển thị thông báo với lý do tại sao DNSCollector bị dừng tự động</string>
     <string name="title_notification_on_stop">Thông báo khi ngừng</string>
     <string name="title_create_shortcut">Tạo một lối tắt</string>
-    <string name="summary_create_shortcut">Tạo một lối tắt liên kết với một bộ máy chủ DNS cụ thể để nhanh chóng khởi động DNSChanger</string>
+    <string name="summary_create_shortcut">Tạo một lối tắt liên kết với một bộ máy chủ DNS cụ thể để nhanh chóng khởi động DNSCollector</string>
     <string name="notification_reason_stopped">Trình thay đổi DNS đã tự động dừng lại: [reason]</string>
     <string name="reason_stop_network_change">Mạng đã được thay đổi (Thay đổi DNS được thiết lập để dừng lại)</string>
     <string name="reason_stop_tasker">Đã dừng bởi Tác vụ tự động</string>
@@ -157,7 +157,7 @@
     <string name="tile_start_stop">Chạy / Dừng</string>
     <string name="title_vpn_exclusion">Loại trừ VPN</string>
     <string name="unfixable_error_explaination">Hoạt động dưới nền đã bị sự cố với một ngoại lệ xuất hiện trên một số thiết bị. Sự cố này không thể được sửa  bởi bản thân ứng dụng.\nHãy thử khởi động lại ứng dụng và nếu điều đó không giúp thử khởi động lại thiết bị của bạn.\n\nNếu vấn đề vẫn còn tồn tại và thiết bị đã được root thử tải về ứng dụng Trình cài đặt Tun.ko vì nó có thể có thể sửa chữa nó. Nhà phát triển của ứng dụng này là DroidVPN Inc.\nLink: https://play.google.com/store/apps/details?id=com.aed.tun.installer</string>
-    <string name="nav_title_dns">DNS</string>
+    <string name="nav_title_dns">Home</string>
     <string name="nav_title_main">Màn hình chính</string>
     <string name="nav_title_learn">Học hỏi</string>
     <string name="nav_title_how_does_it_work">Nó hoạt động như thế nào</string>

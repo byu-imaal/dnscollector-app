@@ -8,7 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.frostnerd.dnschanger.activities.MainActivity">
+    tools:context="edu.byu.imaal.dnscapture.activities.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,6 +27,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/dns1"
+                android:enabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:digits="0123456789."
@@ -51,54 +52,55 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/dns2"
+                android:enabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:digits="0123456789."
                 android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
                 android:nextFocusUp="@id/dns1"
-                android:nextFocusDown="@id/default_dns_view"
-                android:nextFocusForward="@id/default_dns_view"
+                android:nextFocusDown="@id/startStopButton"
+                android:nextFocusForward="@id/startStopButton"
                 android:text="@string/default_dns2"
                 android:textColor="?attr/foregroundElementColor" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
-            android:id="@+id/default_dns_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:background="?attr/roundedCornerBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_marginTop="16dp"
-            android:gravity="center_vertical"
-            android:nextFocusUp="@id/dns2"
-            android:nextFocusDown="@id/startStopButton"
-            android:nextFocusForward="@id/startStopButton"
-            android:onClick="openDefaultDNSDialog"
-            android:padding="10dp">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/default_dns_view"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:background="?attr/roundedCornerBackground"-->
+<!--            android:clickable="true"-->
+<!--            android:focusable="true"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:nextFocusUp="@id/dns2"-->
+<!--            android:nextFocusDown="@id/startStopButton"-->
+<!--            android:nextFocusForward="@id/startStopButton"-->
+<!--            android:onClick="openDefaultDNSDialog"-->
+<!--            android:padding="10dp">-->
 
-            <ImageButton
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:background="?attr/inputElementColor"
-                android:src="@drawable/ic_action_import"
-                android:tint="?attr/foregroundElementColor" />
+<!--            <ImageButton-->
+<!--                style="@style/Widget.AppCompat.Button.Borderless"-->
+<!--                android:layout_width="32dp"-->
+<!--                android:layout_height="32dp"-->
+<!--                android:background="?attr/inputElementColor"-->
+<!--                android:src="@drawable/ic_action_import"-->
+<!--                android:tint="?attr/foregroundElementColor" />-->
 
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="?attr/foregroundElementColor" />
+<!--            <View-->
+<!--                android:layout_width="2dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="?attr/foregroundElementColor" />-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/default_dns"
-                android:textColor="?attr/foregroundElementColor" />
-        </LinearLayout>
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/default_dns"-->
+<!--                android:textColor="?attr/foregroundElementColor" />-->
+<!--        </LinearLayout>-->
 
         <Button
             android:id="@+id/startStopButton"
@@ -107,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="45dp"
             android:background="?attr/roundedCornerBackground"
-            android:nextFocusUp="@id/default_dns_view"
+            android:nextFocusUp="@id/dns2"
             android:nextFocusDown="@id/dns1"
             android:nextFocusForward="@id/dns1"
             android:text="@string/start"
