@@ -49,6 +49,7 @@ public class NetworkCheckHandle {
 
     public NetworkCheckHandle(Context context, String logTag, boolean handleInitialState){
         if(context == null)throw new IllegalStateException("Context passed to NetworkCheckHandle is null.");
+        Util.defaultSetup(context);
         start = System.currentTimeMillis();
         this.context = context;
         LOG_TAG = logTag;
@@ -138,13 +139,15 @@ public class NetworkCheckHandle {
 
     private void startService() throws ReallyWeiredExceptionOnlyAFewPeopleHave {
         if(!running)return;
+        Util.setCurrentDNSServers(accessContext());
         LogFactory.writeMessage(accessContext(), LOG_TAG, "Trying to start DNSVPNService");
         Intent i = VpnService.prepare(accessContext());
         LogFactory.writeMessage(accessContext(), LOG_TAG, "VPNService Prepare Intent", i);
         if (i == null) {
             LogFactory.writeMessage(accessContext(), LOG_TAG, "VPNService is already prepared. Starting DNSVPNService",
-                    i = DNSVpnService.getStartVPNIntent(accessContext()).putExtra(VPNServiceArgument.FLAG_DONT_START_IF_RUNNING.getArgument(), true).
-                            putExtra(VPNServiceArgument.FLAG_FIXED_DNS.getArgument(),false));
+//                    i = DNSVpnService.getStartVPNIntent(accessContext()).putExtra(VPNServiceArgument.FLAG_DONT_START_IF_RUNNING.getArgument(), true).
+//                            putExtra(VPNServiceArgument.FLAG_FIXED_DNS.getArgument(),false));
+            i = DNSVpnService.getUpdateServersIntent(context, true, true));
             Util.startService(accessContext(), i);
         } else {
             LogFactory.writeMessage(accessContext(), LOG_TAG, "VPNService is NOT prepared. Starting BackgroundVpnConfigureActivity");
@@ -212,6 +215,9 @@ public class NetworkCheckHandle {
                 LogFactory.writeMessage(accessContext(), LOG_TAG,
                         "Not on WIFI or MOBILE and setting_disable_netchange is true. Destroying DNSVPNService.",
                         i =DNSVpnService.getDestroyIntent(accessContext(), accessContext().getString(R.string.reason_stop_network_change)));
+                accessContext().startService(i);
+            } else {
+                i = DNSVpnService.getStartVPNIntent(accessContext()).putExtra(VPNServiceArgument.COMMAND_START_VPN.getArgument(), true).putExtra(VPNServiceArgument.FLAG_DONT_START_IF_RUNNING.getArgument(), false);
                 accessContext().startService(i);
             }
         }

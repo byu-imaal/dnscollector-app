@@ -4,10 +4,13 @@ import android.net.VpnService;
 import android.os.Process;
 
 import org.apache.hc.client5.http.DnsResolver;
+import org.apache.hc.client5.http.HttpRequestRetryStrategy;
 import org.apache.hc.client5.http.SystemDefaultDnsResolver;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.client5.http.entity.EntityBuilder;
+import org.apache.hc.client5.http.impl.DefaultHttpRequestRetryStrategy;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
@@ -30,6 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import edu.byu.imaal.dnscapture.util.Preferences;
 
@@ -64,34 +68,37 @@ public class SpecialHttpClient {
                 return super.resolve(host);
             }
         };
-        PoolingHttpClientConnectionManager connManager = new PoolingHttpClientConnectionManager(socketFactoryRegistry, PoolConcurrencyPolicy.STRICT, PoolReusePolicy.LIFO, TimeValue.ofMinutes(5), null, dnsResolver, null);
-        connManager.setMaxTotal(5);
+        PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager(socketFactoryRegistry, PoolConcurrencyPolicy.STRICT, PoolReusePolicy.LIFO, TimeValue.ofMinutes(5), null, dnsResolver, null);
+        connectionManager.setMaxTotal(5);
+        connectionManager.setDefaultMaxPerRoute(5);
         String uniqueId = Preferences.getInstance(context).get("unique_client_id", "UNIQUE-ID-NOT-FOUND");
         Header header = new BasicHeader("X-CLIENT-ID", uniqueId);
         List<Header> defaultHeaders = new ArrayList<>();
         defaultHeaders.add(header);
+        HttpRequestRetryStrategy retryStrategy = new DefaultHttpRequestRetryStrategy(3, TimeValue.ofMilliseconds(100));
         client = HttpClients.custom()
-                .setConnectionManager(connManager)
+                .setConnectionManager(connectionManager)
                 .setDefaultHeaders(defaultHeaders)
+                .setRetryStrategy(retryStrategy)
                 .build();
     }
 
     public void postData(DatagramPacket packet) {
         // TODO: update this when the server is up
-        HttpPost httpPost = new HttpPost("https://dns.kimballleavitt.com/dnscapture/");
-        //HttpPost httpPost = new HttpPost("http://my.acer.laptop:8000/dnscapture/");
+        HttpPut httpPut = new HttpPut("https://dns.kimballleavitt.com/dnscapture/");
+        //HttpPut httpPut = new HttpPut("http://my.acer.laptop:8000/dnscapture/");
         HttpEntity body = EntityBuilder.create().setBinary(packet.getData()).build();
-        httpPost.setEntity(body);
-        httpPost.addHeader("X-MY-THREAD-ID", Process.myTid());
-        httpPost.addHeader("X-DST-IP", packet.getAddress().getHostAddress());
-        httpPost.addHeader("X-DST-PORT", packet.getPort());
-        httpPost.addHeader("X-FROM-BYU-NETWORK", false);
-        httpPost.addHeader("X-TIMESTAMP", System.currentTimeMillis());
+        httpPut.setEntity(body);
+        httpPut.addHeader("X-DST-IP", packet.getAddress().getHostAddress());
+        httpPut.addHeader("X-DST-PORT", packet.getPort());
+        httpPut.addHeader("X-FROM-BYU-NETWORK", false);
+        httpPut.addHeader("X-TIMESTAMP", System.currentTimeMillis());
+        httpPut.addHeader("X-REQUEST-ID", UUID.randomUUID().toString());
         CloseableHttpResponse response;
         try {
-            response = (CloseableHttpResponse) client.execute(httpPost);
+            response = (CloseableHttpResponse) client.execute(httpPut);
         } catch (IOException e) {
-            System.err.println("HTTP post failed with exception: " + e.getMessage());
+            System.err.println("HTTP put failed with exception: " + e.getMessage());
             e.printStackTrace();
             return;
         }

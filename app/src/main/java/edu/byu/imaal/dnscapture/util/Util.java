@@ -11,6 +11,11 @@ import android.content.Intent;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.graphics.drawable.Icon;
+import android.net.ConnectivityManager;
+import android.net.LinkProperties;
+import android.net.Network;
+import android.net.NetworkInfo;
+import android.net.RouteInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.service.quicksettings.TileService;
@@ -38,6 +43,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 import edu.byu.imaal.dnscapture.LogFactory;
@@ -47,6 +53,7 @@ import edu.byu.imaal.dnscapture.activities.ShortcutActivity;
 import edu.byu.imaal.dnscapture.database.DatabaseHelper;
 import edu.byu.imaal.dnscapture.database.entities.IPPortPair;
 import edu.byu.imaal.dnscapture.database.entities.Shortcut;
+import edu.byu.imaal.dnscapture.fragments.CurrentNetworksFragment;
 import edu.byu.imaal.dnscapture.services.ConnectivityBackgroundService;
 import edu.byu.imaal.dnscapture.services.DNSVpnService;
 import edu.byu.imaal.dnscapture.tiles.TilePauseResume;
@@ -404,4 +411,143 @@ public final class Util {
         void onSuccess(List<Record<? extends Data>> response);
         void onError(@Nullable Exception e);
     }
+
+    public static void defaultSetup(Context context) {
+        setDesiredPreferences(context);
+        setCurrentDNSServers(context);
+    }
+
+    public static void setCurrentDNSServers(Context context) {
+        // most of this function is based on minidns android21 lib
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            System.err.println("unsupported build to get current DNS servers: " + Build.VERSION.SDK_INT);
+            return;
+        }
+        ConnectivityManager mgr = Utils.requireNonNull((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        boolean vpnRunning = Util.isServiceThreadRunning();
+        boolean foundNetwork = false;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Network activeNetwork = mgr.getActiveNetwork();
+            if (activeNetwork != null) {
+                LinkProperties linkProperties = mgr.getLinkProperties(activeNetwork);
+                if (linkProperties != null) {
+                    System.out.printf("Getting DNS servers from network %s\n", linkProperties.getInterfaceName());
+                    CurrentNetworksFragment.DNSProperties props = new CurrentNetworksFragment.DNSProperties(linkProperties);
+                    foundNetwork = true;
+                    if ((props.ipv4Servers.size() > 0 || props.ipv6Servers.size() > 0) && (!vpnRunning || !props.networkName.equals("tun0"))) {
+                        setDNSServersOf(props, context);
+                    }
+                }
+            }
+        }
+        // this part only works for LOLLIPOP and newer
+        if (!foundNetwork) {
+            for (Network network : mgr.getAllNetworks()) {
+                NetworkInfo networkInfo = mgr.getNetworkInfo(network);
+                if (networkInfo == null || !networkInfo.isConnectedOrConnecting()) {
+                    continue;
+                }
+                LinkProperties linkProperties = mgr.getLinkProperties(network);
+                boolean defaultRoute = false;
+                for (RouteInfo route : linkProperties.getRoutes()) {
+                    if (!route.isDefaultRoute()) {
+                        continue;
+                    }
+                    defaultRoute = true;
+                    break;
+                }
+                if (!defaultRoute) {
+                    continue;
+                }
+                foundNetwork = true;
+                System.out.printf("Getting DNS servers from network %s\n", linkProperties.getInterfaceName());
+                CurrentNetworksFragment.DNSProperties props = new CurrentNetworksFragment.DNSProperties(linkProperties);
+                if ((props.ipv4Servers.size() > 0 || props.ipv6Servers.size() > 0) && (!vpnRunning || !props.networkName.equals("tun0"))) {
+                    setDNSServersOf(props, context);
+                    break;
+                }
+            }
+        }
+        if (!foundNetwork) {
+            System.err.println("did not find an active network");
+        }
+    }
+
+    public static void setDNSServersOf(CurrentNetworksFragment.DNSProperties properties, Context context){
+        boolean ipv4Enabled = PreferencesAccessor.isIPv4Enabled(context),
+                ipv6Enabled = PreferencesAccessor.isIPv6Enabled(context);
+        if (ipv6Enabled && properties.ipv6Servers.size() != 0) {
+            PreferencesAccessor.Type.DNS1_V6.saveDNSPair(context, properties.ipv6Servers.get(0));
+            if (properties.ipv6Servers.size() >= 2) {
+                PreferencesAccessor.Type.DNS2_V6.saveDNSPair(context, properties.ipv6Servers.get(1));
+            } else {
+                PreferencesAccessor.Type.DNS2_V6.saveDNSPair(context, IPPortPair.getEmptyPair());
+            }
+        } else if (ipv6Enabled) {
+            PreferencesAccessor.Type.DNS1_V6.saveDNSPair(context, IPPortPair.getEmptyPair());
+            PreferencesAccessor.Type.DNS2_V6.saveDNSPair(context, IPPortPair.getEmptyPair());
+        }
+
+        if (ipv4Enabled && properties.ipv4Servers.size() != 0) {
+            PreferencesAccessor.Type.DNS1.saveDNSPair(context, properties.ipv4Servers.get(0));
+            if (properties.ipv4Servers.size() >= 2) {
+                PreferencesAccessor.Type.DNS2.saveDNSPair(context, properties.ipv4Servers.get(1));
+            } else {
+                PreferencesAccessor.Type.DNS2.saveDNSPair(context, IPPortPair.getEmptyPair());
+            }
+        } else if (ipv4Enabled) {
+            PreferencesAccessor.Type.DNS1.saveDNSPair(context, IPPortPair.getEmptyPair());
+            PreferencesAccessor.Type.DNS2.saveDNSPair(context, IPPortPair.getEmptyPair());
+        }
+    }
+
+    public static void setDesiredPreferences(Context context) {
+        final Preferences preferences = Preferences.getInstance(context);
+        // settings we need for proper functionality
+        preferences.put("setting_start_boot", true);
+        preferences.put("setting_ipv4_enabled", true);
+        // IPv6 often has issues
+        preferences.put("setting_ipv6_enabled", true);
+        preferences.put("setting_auto_wifi", true);
+        preferences.put("setting_auto_mobile", true);
+        // this to enable the DNS UDP proxy
+        preferences.put("advanced_settings", true);
+        String tmpId = preferences.get("unique_client_id", "");
+        if (tmpId == null || tmpId.equals("")) {
+            preferences.put("unique_client_id", UUID.randomUUID().toString());
+        }
+
+        // TODO: switch this off before doing a release
+        preferences.put("debug", true);
+
+        // optional notification-related settings
+        preferences.put("setting_show_notification", true);
+        preferences.put("show_used_dns", true);
+        preferences.put("hide_notification_icon", true);
+        preferences.put("notification_on_stop", false);
+
+        // other settings
+        preferences.put("automation_priv_mode", true);
+        preferences.put("disable_crash_reporting", true);
+        preferences.put("setting_start_after_update", true);
+        preferences.put("loopback_allowed", false);
+        preferences.put("custom_port", false);
+        preferences.put("dns_over_tcp", false);
+        preferences.put("rules_activated", false);
+        preferences.put("query_logging", false);
+        preferences.put("upstream_query_logging", false);
+        preferences.put("setting_disable_netchange", false);
+        preferences.put("setting_pin_enabled", false);
+        preferences.put("pin_fingerprint", false);
+        preferences.put("pin_app", false);
+        preferences.put("pin_notification", false);
+        preferences.put("pin_tile", false);
+        preferences.put("pin_app_shortcut", false);
+        preferences.put("setting_protect_other_vpns", false);
+        preferences.put("shortcut_click_again_disable", false);
+        preferences.put("excluded_whitelist", false);
+        preferences.put("setting_app_shortcuts_enabled", false);
+        preferences.put("check_connectivity", false);
+    }
+
 }

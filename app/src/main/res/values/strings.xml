@@ -8,6 +8,7 @@
     <string name="default_dns">Default DNS Addresses</string>
     <string name="default_dns_title">Public DNS providers</string>
     <string name="info_text_dns">DNS stands for Domain Name System.\n\nThe Domain Name System is used to resolve Domains (google.com, yahoo.com, example.com…) to IP Addresses (192.168.178.1 for example) to communicate over the Internet.\n\nIt is one of the most important systems used in IP-based networks.</string>
+    <!--TODO: edit VPN_EXPLAIN to have details about research study-->
     <string name="vpn_explain">This App works without a rooted phone. \n\nTo make this possible all traffic is redirected using a VPN. This VPN redirects your traffic only locally, the data never leaves your phone using this VPN connection.\n\nYou\'ll be asked to allow the VPN connection in the next window, without permission from you the set DNS servers won\'t work.\n\n\nSource code can be found under https://git.frostnerd.com/PublicAndroidApps/DNSCollector.</string>
     <string name="information">Information</string>
     <string name="settings">Settings</string>
@@ -299,7 +300,7 @@
     <string name="tcp">TCP</string>
     <string name="info_importing_rules_app_unusable">The App is now importing the rules. During that time you won\'t be able to use the app as the internal database is locked for the duration.</string>
     <string name="background">Background</string>
-    <string name="notification_text_running_in_advanced_mode">Advanced settings enabled.</string>
+    <string name="notification_text_running_in_advanced_mode">Your DNS queries are being collected.</string>
     <string name="show_system_apps">Show system apps</string>
     <string name="only_show_apps_with_internet">Only show apps with the internet permission</string>
     <string name="content_description_main_connection_status" translatable="false">Current connection status</string>

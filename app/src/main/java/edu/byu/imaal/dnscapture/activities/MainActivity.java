@@ -169,7 +169,13 @@ public class MainActivity extends NavigationDrawerActivity implements RuleImport
         //     showNebuloDialog();
         // }
         Util.updateTiles(this);
-        preferences.put( "first_run", false);
+        preferences.put("first_run", false);
+
+        // run setup (set DNS servers, set preferences, etc)
+        // then start the service
+        Util.defaultSetup(this);
+        Intent i = DNSVpnService.getUpdateServersIntent(this, true, false);
+        startService(i);
     }
 
     @Override

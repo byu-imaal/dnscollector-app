@@ -180,7 +180,7 @@ public class CurrentNetworksFragment extends Fragment {
         public List<IPPortPair> ipv4Servers = new ArrayList<>(),
                 ipv6Servers = new ArrayList<>();
 
-        DNSProperties(LinkProperties properties){
+        public DNSProperties(LinkProperties properties){
             if(TextUtils.isEmpty(properties.getInterfaceName()))networkName = "unknown";
             else networkName = properties.getInterfaceName();
 

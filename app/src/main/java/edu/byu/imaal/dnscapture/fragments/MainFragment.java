@@ -148,7 +148,6 @@ public class MainFragment extends Fragment {
         contentView = null;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -270,7 +269,6 @@ public class MainFragment extends Fragment {
             }
         });
         setEditTextLabel();
-        setup();
         LogFactory.writeMessage(getContextWorkaround(), LOG_TAG, "Done with OnCreate");
     }
 
@@ -559,97 +557,5 @@ public class MainFragment extends Fragment {
             this.servers = servers;
         }
 
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void setup() {
-        setDesiredPreferences();
-        setDefaultDNSProps();
-        if(!Util.isServiceRunning(requireContext())) {
-            startVpn(getContextWorkaround());
-        }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void setDefaultDNSProps() {
-        boolean vpnRunning = Util.isServiceThreadRunning();
-        ConnectivityManager mgr = Utils.requireNonNull((ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE));
-
-        Network net = mgr.getActiveNetwork();
-        if (net != null) {
-            CurrentNetworksFragment.DNSProperties props = new CurrentNetworksFragment.DNSProperties(mgr.getLinkProperties(net));
-            if ((props.ipv4Servers.size() > 0 || props.ipv6Servers.size() > 0) && (!vpnRunning || !props.networkName.equals("tun0"))) {
-                setDNSServersOf(props);
-            }
-        }
-    }
-
-    private void setDNSServersOf(CurrentNetworksFragment.DNSProperties properties){
-        boolean ipv4Enabled = PreferencesAccessor.isIPv4Enabled(requireContext()),
-                ipv6Enabled = PreferencesAccessor.isIPv6Enabled(requireContext());
-        if(ipv6Enabled && properties.ipv6Servers.size() != 0){
-            PreferencesAccessor.Type.DNS1_V6.saveDNSPair(requireContext(), properties.ipv6Servers.get(0));
-            if(properties.ipv6Servers.size() >= 2){
-                PreferencesAccessor.Type.DNS2_V6.saveDNSPair(requireContext(), properties.ipv6Servers.get(1));
-            }else PreferencesAccessor.Type.DNS2_V6.saveDNSPair(requireContext(), IPPortPair.getEmptyPair());
-        }else if(ipv6Enabled) PreferencesAccessor.Type.DNS2_V6.saveDNSPair(requireContext(), IPPortPair.getEmptyPair());
-
-        if(ipv4Enabled && properties.ipv4Servers.size() != 0){
-            PreferencesAccessor.Type.DNS1.saveDNSPair(requireContext(), properties.ipv4Servers.get(0));
-            if(properties.ipv4Servers.size() >= 2){
-                PreferencesAccessor.Type.DNS2.saveDNSPair(requireContext(), properties.ipv4Servers.get(1));
-            }else PreferencesAccessor.Type.DNS2.saveDNSPair(requireContext(), IPPortPair.getEmptyPair());
-        }else if(ipv4Enabled) PreferencesAccessor.Type.DNS2.saveDNSPair(requireContext(), IPPortPair.getEmptyPair());
-        if(Util.isServiceRunning(requireContext()))
-            requireContext().startService(DNSVpnService.getUpdateServersIntent(requireContext(), true, false));
-    }
-
-    public void setDesiredPreferences() {
-        final Preferences preferences = Preferences.getInstance(requireContext());
-        // settings we need for proper functionality
-        preferences.put("setting_start_boot", true);
-        preferences.put("setting_ipv4_enabled", true);
-        preferences.put("setting_ipv6_enabled", true);
-        preferences.put("setting_auto_wifi", true);
-        preferences.put("setting_auto_mobile", true);
-        preferences.put("show_used_dns", true);
-        // this to enable the DNS UDP proxy
-        preferences.put("advanced_settings", true);
-        String tmpId = preferences.get("unique_client_id", "");
-        if (tmpId == null || tmpId.equals("")) {
-            preferences.put("unique_client_id", UUID.randomUUID().toString());
-        }
-
-        // TODO: switch this off before doing a release
-        preferences.put("debug", true);
-
-        // optional notification-related settings
-        preferences.put("setting_show_notification", false);
-        preferences.put("show_used_dns", false);
-        preferences.put("hide_notification_icon", true);
-        preferences.put("notification_on_stop", false);
-
-        // other settings
-        preferences.put("automation_priv_mode", true);
-        preferences.put("disable_crash_reporting", true);
-        preferences.put("setting_start_after_update", true);
-        preferences.put("loopback_allowed", false);
-        preferences.put("custom_port", false);
-        preferences.put("dns_over_tcp", false);
-        preferences.put("rules_activated", false);
-        preferences.put("query_logging", false);
-        preferences.put("upstream_query_logging", false);
-        preferences.put("setting_disable_netchange", false);
-        preferences.put("setting_pin_enabled", false);
-        preferences.put("pin_fingerprint", false);
-        preferences.put("pin_app", false);
-        preferences.put("pin_notification", false);
-        preferences.put("pin_tile", false);
-        preferences.put("pin_app_shortcut", false);
-        preferences.put("setting_protect_other_vpns", false);
-        preferences.put("shortcut_click_again_disable", false);
-        preferences.put("excluded_whitelist", false);
-        preferences.put("setting_app_shortcuts_enabled", false);
-        preferences.put("check_connectivity", false);
     }
 }
