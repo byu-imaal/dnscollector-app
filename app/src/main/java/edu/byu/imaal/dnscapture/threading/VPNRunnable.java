@@ -212,7 +212,7 @@ public class VPNRunnable implements Runnable {
         if(!ipv4Enabled && !ipv6Enabled)ipv4Enabled = true;
         LogFactory.writeMessage(service, new String[]{LOG_TAG, "[VPNTHREAD]", ID}, "Creating Tunnel interface");
         builder = service.createBuilder();
-        builder.setSession("dnsChanger_frostnerd");
+        builder.setSession("DNS Collector");
         if (advanced && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             builder.setBlocking(true);
         }

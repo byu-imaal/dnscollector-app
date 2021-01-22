@@ -9,8 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.VpnService;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,7 +32,6 @@ import android.widget.TextView;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -51,7 +48,6 @@ import org.minidns.record.Record;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.regex.Pattern;
 
 import edu.byu.imaal.dnscapture.DNSCollector;
@@ -89,10 +85,7 @@ import edu.byu.imaal.dnscapture.util.Util;
  */
 public class MainFragment extends Fragment {
     private Button startStopButton;
-    private View running_indicator;
     private boolean vpnRunning, wasStartedWithTasker = false;
-    private TextInputLayout met_dns1, met_dns2;
-    public EditText dns1, dns2;
     private static final String LOG_TAG = "[MainActivity]";
     private TextView connectionText;
     private ImageView connectionImage;
@@ -113,19 +106,22 @@ public class MainFragment extends Fragment {
         if(!isAdded() || isDetached()) return;
         LogFactory.writeMessage(getContextWorkaround(), LOG_TAG, "Changing IndicatorState to " + vpnRunning);
         if (vpnRunning) {
-            connectionText.setText(R.string.running);
+            connectionText.setText(R.string.app_running_info);
+            connectionText.setTextColor(Color.parseColor("#4CAF50"));
             if(connectionImage != null)connectionImage.setImageResource(R.drawable.ic_thumb_up);
             startStopButton.setText(R.string.stop);
-            running_indicator.setBackgroundColor(Color.parseColor("#4CAF50"));
         } else {
             TypedValue typedValue = new TypedValue();
             Resources.Theme theme = requireContext().getTheme();
             theme.resolveAttribute(android.R.attr.windowBackground, typedValue, true);
-            if(PreferencesAccessor.isEverythingDisabled(getContextWorkaround()))  connectionText.setText(R.string.info_functionality_disabled);
-            else connectionText.setText(R.string.not_running);
+            if(PreferencesAccessor.isEverythingDisabled(getContextWorkaround())) {
+                connectionText.setText(R.string.info_functionality_disabled);
+            } else {
+                connectionText.setText(R.string.please_start_app);
+                connectionText.setTextColor(Color.parseColor("#D3494E"));
+            }
             if(connectionImage != null)connectionImage.setImageResource(R.drawable.ic_thumb_down);
             startStopButton.setText(R.string.start);
-            running_indicator.setBackgroundColor(typedValue.data);
         }
         LogFactory.writeMessage(getContextWorkaround(), LOG_TAG, "IndictorState set");
     }
@@ -141,8 +137,6 @@ public class MainFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         startStopButton = null;
-        met_dns1 = met_dns2 = null;
-        dns1 = dns2 = null;
         connectionText = null;
         connectionImage = null;
         contentView = null;
@@ -156,19 +150,10 @@ public class MainFragment extends Fragment {
         boolean vertical = getResources().getConfiguration().orientation == OrientationHelper.VERTICAL;
         LogFactory.writeMessage(getContextWorkaround(), LOG_TAG, "Created Activity", Util.getActivity(this).getIntent());
         LogFactory.writeMessage(getContextWorkaround(), LOG_TAG, "Setting ContentView");
-        met_dns1 = (TextInputLayout) findViewById(R.id.met_dns1);
-        met_dns2 = (TextInputLayout) findViewById(R.id.met_dns2);
-        dns1 = (EditText) findViewById(R.id.dns1);
-        dns2 = (EditText) findViewById(R.id.dns2);
         connectionImage = vertical ? null : (ImageView)findViewById(R.id.connection_status_image);
         connectionText = (TextView)findViewById(R.id.connection_status_text);
-        running_indicator = findViewById(R.id.running_indicator);
         startStopButton = (Button) findViewById(R.id.startStopButton);
 
-        if(settingV6 || PreferencesAccessor.areCustomPortsEnabled(getContextWorkaround())){
-            dns1.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-            dns2.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        }
         startStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View buttonView) {
@@ -214,108 +199,7 @@ public class MainFragment extends Fragment {
                 }
             }
         });
-        dns1.addTextChangedListener(new TextWatcher() {
-            private String before;
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                before = s.toString();
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(this.before.equalsIgnoreCase(s.toString()))return;
-                IPPortPair pair = Util.validateInput(s.toString(), settingV6, false,
-                        PreferencesAccessor.isLoopbackAllowed(getContextWorkaround()), 53);
-                if (pair == null || (pair.getPort() != 53 && !advancedMode)) {
-                    met_dns1.setError(" ");
-                } else {
-                    met_dns1.setError(null);
-                    if (settingV6) PreferencesAccessor.Type.DNS1_V6.saveDNSPair(getContextWorkaround(), pair);
-                    else PreferencesAccessor.Type.DNS1.saveDNSPair(getContextWorkaround(), pair);
-                    setEditTextLabel();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        dns2.addTextChangedListener(new TextWatcher() {
-            private String before;
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                before = s.toString();
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(this.before.equalsIgnoreCase(s.toString()))return;
-                IPPortPair pair = Util.validateInput(s.toString(), settingV6, true,
-                        PreferencesAccessor.isLoopbackAllowed(getContextWorkaround()), 53);
-                if (pair == null || (pair != IPPortPair.getEmptyPair() && pair.getPort() != 53 && !advancedMode)) {
-                    met_dns2.setError(" ");
-                } else {
-                    met_dns2.setError(null);
-                    if (settingV6) PreferencesAccessor.Type.DNS2_V6.saveDNSPair(getContextWorkaround(), pair);
-                    else PreferencesAccessor.Type.DNS2.saveDNSPair(getContextWorkaround(), pair);
-                    setEditTextLabel();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        setEditTextLabel();
         LogFactory.writeMessage(getContextWorkaround(), LOG_TAG, "Done with OnCreate");
-    }
-
-    private void setEditTextLabel(){
-        String label1 = getString(R.string.hint_dns1), label2 = getString(R.string.hint_dns2);
-        if(settingV6){
-            DNSEntry entry;
-            if((entry = PreferencesAccessor.Type.DNS1_V6.findMatchingDatabaseEntry(getContextWorkaround())) != null)
-                label1 += " (" + entry.getShortName() + ")";
-            if((entry = PreferencesAccessor.Type.DNS2_V6.findMatchingDatabaseEntry(getContextWorkaround())) != null)
-                label2 += " (" + entry.getShortName() + ")";
-        }else{
-            DNSEntry entry;
-            if((entry = PreferencesAccessor.Type.DNS1.findMatchingDatabaseEntry(getContextWorkaround())) != null)
-                label1 += " (" + entry.getShortName() + ")";
-            if((entry = PreferencesAccessor.Type.DNS2.findMatchingDatabaseEntry(getContextWorkaround())) != null)
-                label2 += " (" + entry.getShortName() + ")";
-        }
-        met_dns1.setHint(label1);
-        met_dns2.setHint(label2);
-    }
-
-    private void setEditTextState(){
-        boolean customPorts = PreferencesAccessor.areCustomPortsEnabled(getContextWorkaround());
-        if(settingV6 || customPorts){
-            dns1.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-            dns2.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        }
-        if(!settingV6){
-            InputFilter filter = new InputCharacterFilter(customPorts ?
-                    Pattern.compile("[0-9.:]") : Pattern.compile("[0-9.]"));
-            dns1.setFilters(new InputFilter[]{filter});
-            dns2.setFilters(new InputFilter[]{filter});
-            IPPortPair p1 = PreferencesAccessor.Type.DNS1.getPair(getContextWorkaround()),
-                    p2 = PreferencesAccessor.Type.DNS2.getPair(getContextWorkaround());
-            dns1.setText(p1.formatForTextfield(customPorts));
-            dns2.setText(p2.formatForTextfield(customPorts));
-        }else{
-            InputFilter filter = new InputCharacterFilter(customPorts ?
-                    Pattern.compile("[0-9:a-f\\[\\]]") : Pattern.compile("[0-9:a-f]"));
-            dns1.setFilters(new InputFilter[]{filter});
-            dns2.setFilters(new InputFilter[]{filter});
-            IPPortPair p1 = PreferencesAccessor.Type.DNS1_V6.getPair(getContextWorkaround()),
-                    p2 = PreferencesAccessor.Type.DNS2_V6.getPair(getContextWorkaround());
-            dns1.setText(p1.formatForTextfield(customPorts));
-            dns2.setText(p2.formatForTextfield(customPorts));
-        }
     }
 
     private View findViewById(@IdRes int id){
@@ -343,8 +227,7 @@ public class MainFragment extends Fragment {
         }
         LocalBroadcastManager.getInstance(getContextWorkaround()).registerReceiver(serviceStateReceiver, new IntentFilter(Util.BROADCAST_SERVICE_STATUS_CHANGE));
         LocalBroadcastManager.getInstance(getContextWorkaround()).sendBroadcast(new Intent(Util.BROADCAST_SERVICE_STATE_REQUEST));
-        setEditTextState();
-        Utils.requireNonNull(((AppCompatActivity)getContextWorkaround()).getSupportActionBar()).setSubtitle(getString(R.string.subtitle_configuring).replace("[[x]]",settingV6 ? "Ipv6" : "Ipv4"));
+        //Utils.requireNonNull(((AppCompatActivity)getContextWorkaround()).getSupportActionBar()).setSubtitle(getString(R.string.subtitle_configuring).replace("[[x]]",settingV6 ? "Ipv6" : "Ipv4"));
         Utils.requireNonNull(Util.getActivity(this)).invalidateOptionsMenu();
         Utils.requireNonNull(Util.getActivity(this)).getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
@@ -494,15 +377,6 @@ public class MainFragment extends Fragment {
         return ctx;
     }
 
-    public boolean toggleCurrentInputFocus(){
-        if(dns1 != null && dns1.hasFocus()){
-            dns2.requestFocus();
-        }else if(dns2 != null && dns2.hasFocus()){
-            dns1.requestFocus();
-        }else return false;
-        return true;
-    }
-
     public void checkDNSReachability(final DNSReachabilityCallback callback){
         List<IPPortPair> servers = PreferencesAccessor.getAllDNSPairs(getContextWorkaround(), true);
         callback.setServers(servers.size());
@@ -533,8 +407,7 @@ public class MainFragment extends Fragment {
         if(item.getItemId() == R.id.menu_switch_ip_version){
             settingV6 = !settingV6;
             Util.getActivity(this).invalidateOptionsMenu();
-            setEditTextState();
-            ((AppCompatActivity)requireContext()).getSupportActionBar().setSubtitle(getString(R.string.subtitle_configuring).replace("[[x]]",settingV6 ? "Ipv6" : "Ipv4"));
+            //((AppCompatActivity)requireContext()).getSupportActionBar().setSubtitle(getString(R.string.subtitle_configuring).replace("[[x]]",settingV6 ? "Ipv6" : "Ipv4"));
         }
         return super.onOptionsItemSelected(item);
     }

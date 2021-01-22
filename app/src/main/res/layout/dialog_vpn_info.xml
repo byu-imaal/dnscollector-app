@@ -23,6 +23,7 @@
             android:layout_alignParentBottom="true"
             android:layout_below="@id/text"
             android:text="@string/dont_show_again"
-            android:textColor="?android:attr/textColor" />
+            android:textColor="?android:attr/textColor"
+            android:checked="true"/>
     </RelativeLayout>
 </ScrollView>

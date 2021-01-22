@@ -139,14 +139,14 @@ public class DNSCreationDialog extends BaseDialog {
                         }
                     }
                 });
-                if(ipv6Enabled && ipv4Enabled)getButton(BUTTON_NEUTRAL).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        settingV6 = !settingV6;
-                        setEditTextStates();
-                        ((Button) v).setText(settingV6 ? "V4" : "V6");
-                    }
-                });
+//                if(ipv6Enabled && ipv4Enabled)getButton(BUTTON_NEUTRAL).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        settingV6 = !settingV6;
+//                        setEditTextStates();
+//                        ((Button) v).setText(settingV6 ? "V4" : "V6");
+//                    }
+//                });
             }
         });
         ed_dns1.addTextChangedListener(new TextWatcher() {

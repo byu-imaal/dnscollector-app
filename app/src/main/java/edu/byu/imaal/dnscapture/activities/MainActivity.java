@@ -253,20 +253,20 @@ public class MainActivity extends NavigationDrawerActivity implements RuleImport
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        boolean handled = false;
-        switch(keyCode){
-            case KeyEvent.KEYCODE_MEDIA_PLAY:
-            case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
-                if(currentFragment() instanceof MainFragment){
-                    handled = true;
-                    ((MainFragment)currentFragment()).toggleVPN();
-                }break;
-            case KeyEvent.KEYCODE_DPAD_DOWN:case KeyEvent.KEYCODE_PAGE_DOWN:case KeyEvent.KEYCODE_DPAD_UP:case KeyEvent.KEYCODE_PAGE_UP:
-                if(currentFragment() instanceof MainFragment){
-                    if(((MainFragment)currentFragment()).toggleCurrentInputFocus())handled = true;
-                }
-        }
-        return handled || super.onKeyDown(keyCode, event);
+//        boolean handled = false;
+//        switch(keyCode){
+//            case KeyEvent.KEYCODE_MEDIA_PLAY:
+//            case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
+//                if(currentFragment() instanceof MainFragment){
+//                    handled = true;
+//                    ((MainFragment)currentFragment()).toggleVPN();
+//                }break;
+//            case KeyEvent.KEYCODE_DPAD_DOWN:case KeyEvent.KEYCODE_PAGE_DOWN:case KeyEvent.KEYCODE_DPAD_UP:case KeyEvent.KEYCODE_PAGE_UP:
+//                if(currentFragment() instanceof MainFragment){
+//                    if(((MainFragment)currentFragment()).toggleCurrentInputFocus())handled = true;
+//                }
+//        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @NonNull
@@ -290,7 +290,7 @@ public class MainActivity extends NavigationDrawerActivity implements RuleImport
         itemCreator.createItemAndContinue(R.string.nav_title_dns, setDrawableColor(DesignUtil.getDrawable(this, R.drawable.ic_home)), new DrawerItem.FragmentCreator() {
             @Override
             public Fragment getFragment(@Nullable Bundle arguments) {
-                return mainFragment=new MainFragment();
+                return mainFragment = new MainFragment();
             }
         }).accessLastItemAndContinue(new DrawerItemCreator.ItemAccessor() {
             @Override
@@ -579,38 +579,6 @@ public class MainActivity extends NavigationDrawerActivity implements RuleImport
 //                return false;
 //            }
 //        });
-        itemCreator.createItemAndContinue("Contact");
-        itemCreator.createItemAndContinue("Call researcher", setDrawableColor(DesignUtil.getDrawable(this, R.drawable.ic_person)), new DrawerItem.ClickListener() {
-            @Override
-            public boolean onClick(DrawerItem item, NavigationDrawerActivity drawerActivity, @Nullable Bundle arguments) {
-                Intent telIntent = new Intent(Intent.ACTION_DIAL, Uri.fromParts(
-                        "tel","+13852303256", null));
-                LogFactory.writeMessage(MainActivity.this, LOG_TAG, "Now showing chooser for calling dev", telIntent);
-                startActivity(Intent.createChooser(telIntent, "Call researcher"));
-                return false;
-            }
-
-            @Override
-            public boolean onLongClick(DrawerItem item, NavigationDrawerActivity drawerActivity) {
-                return false;
-            }
-        });
-        itemCreator.createItemAndContinue("Text researcher", setDrawableColor(DesignUtil.getDrawable(this, R.drawable.ic_person)), new DrawerItem.ClickListener() {
-            @Override
-            public boolean onClick(DrawerItem item, NavigationDrawerActivity drawerActivity, @Nullable Bundle arguments) {
-                Intent smsIntent = new Intent(Intent.ACTION_VIEW, Uri.fromParts(
-                        "sms","+13852303256", null));
-                smsIntent.putExtra("sms_body", "Hello BYU DNS Researcher,\n\n");
-                LogFactory.writeMessage(MainActivity.this, LOG_TAG, "Now showing chooser for texting dev", smsIntent);
-                startActivity(Intent.createChooser(smsIntent, "Text researcher"));
-                return false;
-            }
-
-            @Override
-            public boolean onLongClick(DrawerItem item, NavigationDrawerActivity drawerActivity) {
-                return false;
-            }
-        });
         itemCreator.createItemAndContinue(R.string.contact_developer, setDrawableColor(DesignUtil.getDrawable(this, R.drawable.ic_person)), new DrawerItem.ClickListener() {
             @Override
             public boolean onClick(DrawerItem item, NavigationDrawerActivity drawerActivity, @Nullable Bundle arguments) {
@@ -631,12 +599,11 @@ public class MainActivity extends NavigationDrawerActivity implements RuleImport
                 return false;
             }
         });
-        itemCreator.createItemAndContinue("Other");
-        itemCreator.createItemAndContinue("View consent document", setDrawableColor(DesignUtil.getDrawable(this, R.drawable.ic_person)), new DrawerItem.ClickListener() {
+        itemCreator.createItemAndContinue("View consent document", setDrawableColor(DesignUtil.getDrawable(this, R.drawable.ic_open_in_new)), new DrawerItem.ClickListener() {
             @Override
             public boolean onClick(DrawerItem item, NavigationDrawerActivity drawerActivity, @Nullable Bundle arguments) {
                 // TODO: upload consent document to imaal.byu.edu (or Github or something) and change link here
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://imaal.byu.edu/"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://imaal3.byu.edu/files/DNS-traffic-study-consent-form.pdf"));
                 startActivity(Intent.createChooser(intent, "View consent document"));
                 return false;
             }
@@ -646,6 +613,7 @@ public class MainActivity extends NavigationDrawerActivity implements RuleImport
                 return false;
             }
         });
+        itemCreator.createItemAndContinue("Other");
         itemCreator.createItemAndContinue(R.string.nav_title_what_is_dns, setDrawableColor(DesignUtil.getDrawable(this, R.drawable.ic_help)), new DrawerItem.ClickListener() {
             @Override
             public boolean onClick(DrawerItem item, NavigationDrawerActivity drawerActivity, @Nullable Bundle arguments) {
@@ -728,52 +696,28 @@ public class MainActivity extends NavigationDrawerActivity implements RuleImport
                 return false;
             }
         });
-        itemCreator.createItemAndContinue(R.string.title_about, setDrawableColor(DesignUtil.getDrawable(this, R.drawable.ic_info)), new DrawerItem.ClickListener() {
-            @Override
-            public boolean onClick(DrawerItem item, NavigationDrawerActivity drawerActivity, @Nullable Bundle arguments) {
-                String text = getString(R.string.about_text).replace("[[version]]", BuildConfig.VERSION_NAME).replace("[[build]]", BuildConfig.VERSION_CODE + "");
-                new AlertDialog.Builder(MainActivity.this).setTitle(R.string.title_about).setMessage(text)
-                        .setNegativeButton(R.string.close, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        }).show();
-                return false;
-            }
-
-            @Override
-            public boolean onLongClick(DrawerItem item, NavigationDrawerActivity drawerActivity) {
-                new AlertDialog.Builder(MainActivity.this).setMessage(R.string.easter_egg).setTitle("(╯°□°）╯︵ ┻━┻")
-                        .setPositiveButton("Okay :(", null).show();
-                return true;
-            }
-        });
+//        itemCreator.createItemAndContinue(R.string.title_about, setDrawableColor(DesignUtil.getDrawable(this, R.drawable.ic_info)), new DrawerItem.ClickListener() {
+//            @Override
+//            public boolean onClick(DrawerItem item, NavigationDrawerActivity drawerActivity, @Nullable Bundle arguments) {
+//                String text = getString(R.string.about_text).replace("[[version]]", BuildConfig.VERSION_NAME).replace("[[build]]", BuildConfig.VERSION_CODE + "");
+//                new AlertDialog.Builder(MainActivity.this).setTitle(R.string.title_about).setMessage(text)
+//                        .setNegativeButton(R.string.close, new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                dialogInterface.dismiss();
+//                            }
+//                        }).show();
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onLongClick(DrawerItem item, NavigationDrawerActivity drawerActivity) {
+//                new AlertDialog.Builder(MainActivity.this).setMessage(R.string.easter_egg).setTitle("(╯°□°）╯︵ ┻━┻")
+//                        .setPositiveButton("Okay :(", null).show();
+//                return true;
+//            }
+//        });
         return itemCreator.getDrawerItemsAndDestroy();
-    }
-
-    private void showNebuloDialog() {
-        AlertDialog dialog = new AlertDialog.Builder(this, ThemeHandler.getDialogTheme(this))
-                .setTitle("Nebulo")
-                .setMessage(R.string.nebulo_download_text)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Preferences.getInstance(MainActivity.this).putBoolean("nebulo_shown", true);
-                        openMarket("com.frostnerd.smokescreen");
-                    }
-                })
-                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Preferences.getInstance(MainActivity.this).putBoolean("nebulo_shown", true);
-                        dialog.dismiss();
-                    }
-                })
-                .setCancelable(false)
-                .create();
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
     }
 
     @Override
@@ -862,12 +806,6 @@ public class MainActivity extends NavigationDrawerActivity implements RuleImport
         return 0;
     }
 
-    public void rateApp() {
-        LogFactory.writeMessage(this, LOG_TAG, "Opening site to rate app");
-        openMarket(getPackageName());
-        Preferences.getInstance(this).put("rated",true);
-    }
-
     private void openMarket(String packageName) {
         try {
             LogFactory.writeMessage(this, LOG_TAG, "Trying to open market");
@@ -879,84 +817,6 @@ public class MainActivity extends NavigationDrawerActivity implements RuleImport
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName)));
             } catch (ActivityNotFoundException e2) {
                 Toast.makeText(MainActivity.this, R.string.nebulo_no_browser, Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-    public void openDefaultDNSDialog(View v) {
-        LogFactory.writeMessage(this, LOG_TAG, "Opening DNSEntryListDialog");
-        dnsEntryListDialog = new DNSEntryListDialog(this, ThemeHandler.getDialogTheme(this), new DNSEntryListDialog.OnProviderSelectedListener() {
-            @Override
-            public void onProviderSelected(String name, IPPortPair dns1, IPPortPair dns2, IPPortPair dns1V6, IPPortPair dns2V6) {
-                boolean port = PreferencesAccessor.areCustomPortsEnabled(MainActivity.this);
-                if(mainFragment.settingV6){
-                    mainFragment.dns1.setText(dns1V6.toString(port));
-                    mainFragment.dns2.setText(dns2V6.toString(port));
-                    boolean ipEnabled = PreferencesAccessor.isIPv4Enabled(MainActivity.this);
-                    if(ipEnabled)PreferencesAccessor.Type.DNS1.saveDNSPair(MainActivity.this, dns1);
-                    if(ipEnabled)PreferencesAccessor.Type.DNS2.saveDNSPair(MainActivity.this, dns2);
-                }else{
-                    mainFragment.dns1.setText(dns1.toString(port));
-                    mainFragment.dns2.setText(dns2.toString(port));
-                    boolean ipEnabled = PreferencesAccessor.isIPv6Enabled(MainActivity.this);
-                    if(ipEnabled)PreferencesAccessor.Type.DNS1_V6.saveDNSPair(MainActivity.this, dns1V6);
-                    if(ipEnabled)PreferencesAccessor.Type.DNS2_V6.saveDNSPair(MainActivity.this, dns2V6);
-                }
-                applyDNSServersInstant();
-            }
-        });
-        dnsEntryListDialog.show();
-        LogFactory.writeMessage(this, LOG_TAG, "Dialog is now being shown");
-    }
-
-    private void applyDNSServersInstant(){
-        if(Util.isServiceRunning(MainActivity.this)){
-            if(PreferencesAccessor.checkConnectivityOnStart(this)){
-                if (currentFragment() instanceof MainFragment){
-                    final LoadingDialog dialog = new LoadingDialog(this, R.string.checking_connectivity, R.string.dialog_connectivity_description);
-                    dialog.show();
-                    ((MainFragment)currentFragment()).checkDNSReachability(new MainFragment.DNSReachabilityCallback() {
-                        @Override
-                        public void checkFinished(@NonNull List<IPPortPair> unreachable, @NonNull List<IPPortPair> reachable) {
-                            dialog.dismiss();
-                            if(unreachable.size() == 0){
-                                MainActivity.this.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        MainActivity.this.startService(DNSVpnService.getUpdateServersIntent(MainActivity.this, true, false));
-                                    }
-                                });
-                            }else{
-                                String _text = getString(R.string.no_connectivity_warning_text);
-                                StringBuilder builder = new StringBuilder();
-                                _text = _text.replace("[x]", unreachable.size() + reachable.size() + "");
-                                _text = _text.replace("[y]", unreachable.size() + "");
-                                boolean customPorts = PreferencesAccessor.areCustomPortsEnabled(MainActivity.this);
-                                for(IPPortPair p: unreachable)if(p != null) builder.append("- ").append(p.formatForTextfield(customPorts)).append("\n");
-                                _text = _text.replace("[servers]", builder.toString());
-                                final String text = _text;
-                                MainActivity.this.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        if(!isFinishing()) {
-                                            new AlertDialog.Builder(MainActivity.this, ThemeHandler.getDialogTheme(MainActivity.this))
-                                                    .setTitle(R.string.warning).setCancelable(true).setPositiveButton(R.string.start, new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialogInterface, int i) {
-                                                    MainActivity.this.startService(DNSVpnService.getUpdateServersIntent(MainActivity.this, true, false));
-                                                }
-                                            }).setNegativeButton(R.string.cancel, null).setMessage(text).show();
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                    });
-                }else {
-                    this.startService(DNSVpnService.getUpdateServersIntent(MainActivity.this, true, false));
-                }
-            }else{
-                this.startService(DNSVpnService.getUpdateServersIntent(MainActivity.this, true, false));
             }
         }
     }

@@ -320,7 +320,7 @@ public class ConfigureActivity extends AppCompatActivity {
             setInputType();
             ed_dns1.setText(settingV6 ? dns1V6.formatForTextfield(customPorts) : dns1.formatForTextfield(customPorts));
             ed_dns2.setText(settingV6 ? dns2V6.formatForTextfield(customPorts) : dns2.formatForTextfield(customPorts));
-            Utils.requireNonNull(getSupportActionBar()).setSubtitle(getString(R.string.subtitle_configuring).replace("[[x]]",settingV6 ? "Ipv6" : "Ipv4"));
+            //Utils.requireNonNull(getSupportActionBar()).setSubtitle(getString(R.string.subtitle_configuring).replace("[[x]]",settingV6 ? "Ipv6" : "Ipv4"));
         }else if(item.getItemId() == android.R.id.home){
             lastBackPress = System.currentTimeMillis();
             onBackPressed();

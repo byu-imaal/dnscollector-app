@@ -16,6 +16,7 @@ import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkInfo;
 import android.net.RouteInfo;
+import android.net.VpnService;
 import android.os.Build;
 import android.os.Bundle;
 import android.service.quicksettings.TileService;
@@ -31,7 +32,14 @@ import androidx.fragment.app.FragmentActivity;
 import com.frostnerd.general.StringUtil;
 import com.frostnerd.general.Utils;
 import com.frostnerd.networking.NetworkUtil;
+import com.google.gson.internal.bind.util.ISO8601Utils;
 
+import org.apache.hc.client5.http.classic.HttpClient;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.ParseException;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.minidns.record.Data;
 import org.minidns.record.Record;
 
@@ -41,6 +49,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.Inet6Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -58,6 +70,7 @@ import edu.byu.imaal.dnscapture.services.ConnectivityBackgroundService;
 import edu.byu.imaal.dnscapture.services.DNSVpnService;
 import edu.byu.imaal.dnscapture.tiles.TilePauseResume;
 import edu.byu.imaal.dnscapture.tiles.TileStartStop;
+import edu.byu.imaal.dnscapture.util.dnsproxy.SpecialHttpClient;
 
 
 /*
@@ -417,10 +430,50 @@ public final class Util {
         setCurrentDNSServers(context);
     }
 
+    public static boolean isOnBYUsNetwork() {
+        HttpClient client = SpecialHttpClient.getInstance().getClient();
+        HttpGet httpGet = new HttpGet("https://api64.ipify.org");
+        CloseableHttpResponse response;
+        try {
+            response = (CloseableHttpResponse) client.execute(httpGet);
+        } catch (IOException e) {
+            // System.err.println("HTTP get failed with exception: " + e.getMessage());
+            // e.printStackTrace();
+            return false;
+        }
+        int status = response.getCode();
+        if (status != 200) {
+            // System.err.println("got unexpected status " + status + "from api64.ipify.org");
+            return false;
+        }
+        String ip;
+        try {
+            ip = EntityUtils.toString(response.getEntity());
+        } catch (IOException | ParseException e) {
+            // System.err.println("HTTP get failed with exception: " + e.getMessage());
+            // e.printStackTrace();
+            return false;
+        }
+        try {
+            long byuSubnet = ByteBuffer.wrap(InetAddress.getByName("128.187.0.0").getAddress()).getInt() & 0xffffffffL;
+            long byuNetmask = ByteBuffer.wrap(InetAddress.getByName("255.255.0.0").getAddress()).getInt() & 0xffffffffL;
+            InetAddress currentAddress = InetAddress.getByName(ip);
+            if (currentAddress instanceof Inet6Address) {
+                // BYU doesn't have any IPv6 addresses
+                return false;
+            }
+            long addr = ByteBuffer.wrap(currentAddress.getAddress()).getInt() & 0xffffffffL;
+            return ((addr ^ byuSubnet) & byuNetmask) == 0;
+        } catch (UnknownHostException e) {
+            // e.printStackTrace();
+            return false;
+        }
+    }
+
     public static void setCurrentDNSServers(Context context) {
         // most of this function is based on minidns android21 lib
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            System.err.println("unsupported build to get current DNS servers: " + Build.VERSION.SDK_INT);
+            //System.err.println("unsupported build to get current DNS servers: " + Build.VERSION.SDK_INT);
             return;
         }
         ConnectivityManager mgr = Utils.requireNonNull((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
@@ -431,7 +484,7 @@ public final class Util {
             if (activeNetwork != null) {
                 LinkProperties linkProperties = mgr.getLinkProperties(activeNetwork);
                 if (linkProperties != null) {
-                    System.out.printf("Getting DNS servers from network %s\n", linkProperties.getInterfaceName());
+                    //System.out.printf("Getting DNS servers from network %s\n", linkProperties.getInterfaceName());
                     CurrentNetworksFragment.DNSProperties props = new CurrentNetworksFragment.DNSProperties(linkProperties);
                     foundNetwork = true;
                     if ((props.ipv4Servers.size() > 0 || props.ipv6Servers.size() > 0) && (!vpnRunning || !props.networkName.equals("tun0"))) {
@@ -460,7 +513,7 @@ public final class Util {
                     continue;
                 }
                 foundNetwork = true;
-                System.out.printf("Getting DNS servers from network %s\n", linkProperties.getInterfaceName());
+                //System.out.printf("Getting DNS servers from network %s\n", linkProperties.getInterfaceName());
                 CurrentNetworksFragment.DNSProperties props = new CurrentNetworksFragment.DNSProperties(linkProperties);
                 if ((props.ipv4Servers.size() > 0 || props.ipv6Servers.size() > 0) && (!vpnRunning || !props.networkName.equals("tun0"))) {
                     setDNSServersOf(props, context);
@@ -469,7 +522,7 @@ public final class Util {
             }
         }
         if (!foundNetwork) {
-            System.err.println("did not find an active network");
+            //System.err.println("did not find an active network");
         }
     }
 
@@ -517,8 +570,7 @@ public final class Util {
             preferences.put("unique_client_id", UUID.randomUUID().toString());
         }
 
-        // TODO: switch this off before doing a release
-        preferences.put("debug", true);
+        preferences.put("debug", false);
 
         // optional notification-related settings
         preferences.put("setting_show_notification", true);

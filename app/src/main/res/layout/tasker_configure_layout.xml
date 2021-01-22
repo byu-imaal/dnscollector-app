@@ -118,35 +118,35 @@
                     android:textColor="?attr/foregroundElementColor"/>
             </com.frostnerd.materialedittext.MaterialEditText>
 
-            <LinearLayout
-                android:id="@+id/default_dns_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/inputElementColor"
-                android:clickable="true"
-                android:focusable="true"
-                android:onClick="openDefaultDNSDialog"
-                android:padding="10dp">
+<!--            <LinearLayout-->
+<!--                android:id="@+id/default_dns_view"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="?attr/inputElementColor"-->
+<!--                android:clickable="true"-->
+<!--                android:focusable="true"-->
+<!--                android:onClick="openDefaultDNSDialog"-->
+<!--                android:padding="10dp">-->
 
-                <ImageButton
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:background="?attr/inputElementColor"
-                    android:src="@drawable/ic_action_import" />
+<!--                <ImageButton-->
+<!--                    style="@style/Widget.AppCompat.Button.Borderless"-->
+<!--                    android:layout_width="32dp"-->
+<!--                    android:layout_height="32dp"-->
+<!--                    android:background="?attr/inputElementColor"-->
+<!--                    android:src="@drawable/ic_action_import" />-->
 
-                <View
-                    android:layout_width="2dp"
-                    android:layout_height="match_parent"
-                    android:textColor="?attr/foregroundElementColor" />
+<!--                <View-->
+<!--                    android:layout_width="2dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:textColor="?attr/foregroundElementColor" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="@string/default_dns"
-                    android:textColor="?attr/foregroundElementColor" />
-            </LinearLayout>
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="@string/default_dns"-->
+<!--                    android:textColor="?attr/foregroundElementColor" />-->
+<!--            </LinearLayout>-->
         </LinearLayout>
 
         <RelativeLayout

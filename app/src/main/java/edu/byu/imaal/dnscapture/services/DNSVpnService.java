@@ -135,6 +135,9 @@ public class DNSVpnService extends VpnService {
                     customPorts = PreferencesAccessor.areCustomPortsEnabled(this);
             StringBuilder contentText = new StringBuilder();
             DNSEntry matchingEntry;
+            boolean advancedMode = PreferencesAccessor.isRunningInAdvancedMode(this);
+            if(advancedMode)contentText.append(getString(R.string.notification_text_running_in_advanced_mode));
+            contentText.append("\nCurrent DNS servers:\n");
             for(IPPortPair pair: upstreamServers){
                 if((ipv4Enabled && !pair.isIpv6()) || (ipv6Enabled && pair.isIpv6())){
                     matchingEntry = DatabaseHelper.getInstance(this).findMatchingDNSEntry(pair.getAddress());
@@ -149,11 +152,9 @@ public class DNSVpnService extends VpnService {
             }else{
                 if(contentText.length() != 0) contentText.setLength(contentText.length()-1);
             }
-            boolean advancedMode = PreferencesAccessor.isRunningInAdvancedMode(this);
             if(!ipv6Enabled){
                 contentText.append("\n").append(getString(R.string.notification_ipv6_text));
             }
-            if(advancedMode)contentText.append("\n").append(getString(R.string.notification_text_running_in_advanced_mode));
             notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().
                     bigText(contentText.toString()));
             notificationBuilder.setSubText(getString(threadRunning ? R.string.notification_running : R.string.notification_paused));

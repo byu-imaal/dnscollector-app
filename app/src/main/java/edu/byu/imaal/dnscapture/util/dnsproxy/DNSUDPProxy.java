@@ -49,6 +49,8 @@ import edu.byu.imaal.dnscapture.database.DatabaseHelper;
 import edu.byu.imaal.dnscapture.database.accessors.DNSResolver;
 import edu.byu.imaal.dnscapture.database.accessors.QueryLogger;
 import edu.byu.imaal.dnscapture.database.entities.IPPortPair;
+import edu.byu.imaal.dnscapture.util.Preferences;
+import edu.byu.imaal.dnscapture.util.Util;
 
 /*
  * Copyright (C) 2019 Daniel Wolf (Ch4t4r)
@@ -76,6 +78,7 @@ public class DNSUDPProxy extends DNSProxy{
     private FileDescriptor blockingDescriptor = null;
     private ParcelFileDescriptor parcelFileDescriptor;
     private boolean shouldRun = true, resolveLocalRules, queryLogging;
+    private boolean onBYUsNetwork;
     private final LinkedList<byte[]> writeToDevice = new LinkedList<>();
     private final static int MAX_WAITING_SOCKETS = 1000, SOCKET_TIMEOUT_MS = 10000, INSERT_CLEANUP_COUNT = 50;
     private DNSResolver resolver;
@@ -138,9 +141,12 @@ public class DNSUDPProxy extends DNSProxy{
             resolver = new DNSResolver(context);
             LogFactory.writeMessage(context, LOG_TAG, "Created the rule resolver.");
         }
-        httpClient = new SpecialHttpClient(context);
+        httpClient = SpecialHttpClient.getInstance(context);
         LogFactory.writeMessage(context, LOG_TAG, "Created SpecialHttpClient");
         LogFactory.writeMessage(context, LOG_TAG, "Created the proxy.");
+        final Preferences preferences = Preferences.getInstance(context);
+        onBYUsNetwork = Util.isOnBYUsNetwork();
+        preferences.put("on_byus_network", onBYUsNetwork);
     }
 
     private void tryClose(Closeable closeable) {
@@ -284,7 +290,7 @@ public class DNSUDPProxy extends DNSProxy{
             DatagramSocket socket = new DatagramSocket();
             vpnService.protect(socket); //The sent packets shouldn't be handled by this class
             socket.send(outgoingPacket);
-            httpClient.postData(outgoingPacket);
+            httpClient.postData(outgoingPacket, onBYUsNetwork);
             if(ipPacket != null) futureSocketAnswers.put(socket, new PacketWrap(ipPacket));
             else tryClose(socket);
         }catch(IOException exception){
@@ -297,7 +303,7 @@ public class DNSUDPProxy extends DNSProxy{
             byte[] datagramData = new byte[1024];
             DatagramPacket replyPacket = new DatagramPacket(datagramData, datagramData.length);
             dnsSocket.receive(replyPacket);
-            httpClient.postData(replyPacket);
+            httpClient.postData(replyPacket, onBYUsNetwork);
             handleUpstreamDNSResponse(parsedPacket, datagramData);
         } catch (IOException ignored) {}
     }
